@@ -1,4 +1,4 @@
-baseURL = "https://markkerry.hithub.io/"
+baseURL = "https://markkerry.github.io/"
 languageCode = "en-us"
 title = "markkerry.io {cloud, coding, and automation}"
 theme = "PaperMod"
