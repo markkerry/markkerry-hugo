@@ -8,7 +8,7 @@ draft: false
 
 Content of the post
 
-![WHYYY](content/posts/images/wsl.jpg)
+![WHYYY](images/wsl.jpg)
 
 link to [Github](https://github.com/markkerry)
 
