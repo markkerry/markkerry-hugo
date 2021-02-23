@@ -1,0 +1,5 @@
+baseURL = "https://markkerry.hithub.io/"
+languageCode = "en-us"
+title = "markkerry.io {cloud, coding, and automation}"
+theme = "PaperMod"
+publishDir = "docs"
