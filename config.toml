@@ -1,5 +1,5 @@
 baseURL = "https://markkerry.github.io/"
 languageCode = "en-us"
-title = "markkerry.github.io {cloud, coding, and automation}"
+title = "markkerry.github.io {cloud, code, and automation}"
 theme = "PaperMod"
 publishDir = "docs"
