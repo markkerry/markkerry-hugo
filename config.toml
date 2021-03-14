@@ -1,5 +1,44 @@
 baseURL = "https://markkerry.github.io/"
 languageCode = "en-us"
-title = "markkerry.github.io {cloud, code, and automation}"
+title = "markkerry.github.io"
 theme = "PaperMod"
 publishDir = "docs"
+
+[[menu.main]]
+name = "About"
+url = "about/"
+weight = 5
+
+[[menu.main]]
+name = "Archive"
+url = "archive"
+weight = 10
+
+[[menu.main]]
+name = "Tags"
+url = "tags/"
+weight = 10
+
+[params]
+env = "production"
+description = "My personal site - https://github.com/markkerry/markkerry-hugo"
+author = "Mark kerry"
+defaultTheme = "auto"
+ShowShareButtons = false
+ShowReadingTime = true
+displayFullLangName = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowToc = true
+
+[homeInfoParams]
+
+  [params.homeInfoParams]
+  Title = "Cloud, Code and Automation"
+  Content = """
+Documenting my learning journey.
+"""
+
+  [[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/markkerry"

@@ -2,47 +2,34 @@
 title: "Markdown Reference"
 date: 2021-02-22T17:47:44Z
 draft: false
+tags: ["markdown"]
 ---
 
-A quick reference for writing in Markdown.
+If you scroll to the bottom of any page of this site, you will notice the words "Powered by [Hugo](https://gohugo.io)", and all posts generated in a Hugo static web app are written in markdown. Having owned a [Github](https://github.com/markkerry) account for a few years now, I have some experience writing readme files in markdown. 
+
+Here is my quick reference for writing in Markdown.
 
 ## Headers
 
 ```markdown
-# H1
-## H2
-### H3
-etc
+# Header 1
+## Header 2
+### Header 3
 ```
+
 Display as follows:
 
-# H1
+# Header 1
 
-## H2
+## Header 2
 
-### H3
+### Header 3
 
 ---
 
 ## Code Snips
 
-Add a code snip as follows
-
-<pre>
-```powershell
-$uptime = Get-ComputerInfo | Select-Object OSUptime
-if ($Uptime.OsUptime.Days -ge 7) {
-    Write-Output "Device has not rebooted in $($Uptime.OsUptime.Days) days"
-    Write-Output "Non-Compliant"
-    exit 1
-}
-else {
-    Write-Output "Device has rebooted $($Uptime.OsUptime) days ago"
-    Write-Output "Compliant"
-    exit 0
-}
-```
-</pre>
+Add a code snippets by wrapping it in three backticks (```) above and below the code.
 
 And the following will display:
 
@@ -66,15 +53,15 @@ else {
 
 Bold __text__ can be defined in **two** different ways. Using double underscores `'__'` or double asterisk `'**'`
 
-<pre>
+```
 Bold __text__ can be defined in **two** different ways
-</pre>
+```
 
 Italic _text_ can be defined in *two* different ways. Using double underscores `'_'` or double asterisk `'*'`
 
-<pre>
+```
 Italic _text_ can be defined in *two* different ways
-</pre>
+```
 
 ---
 
@@ -82,26 +69,25 @@ Italic _text_ can be defined in *two* different ways
 
 Ordered lists as follows
 
-<pre>
+```
 1. Item 1
 1. Item 2
-  1. Item 2a
-  1. Item 2b
-</pre>
+1. Item 3
+```
 
 1. Item 1
 1. Item 2
-  1. Item 2a
-  1. Item 2b
+1. Item 3
+
 
 Unordered lists
 
-<pre>
+```
 * Item 1
 * Item 2
   * Item 2a
   * Item 2b
-</pre>
+```
 
 * Item 1
 * Item 2
@@ -110,24 +96,42 @@ Unordered lists
 
   ---
 
-![WHYY](images/wsl.jpg)
+## Images
+
+```
+![imageName](images/wsl.jpg)
+```
+
+![IMAGE](images/wsl.jpg)
+
+## Links
+
+Links can be written as follows:
+
+```
+link to [Github](https://github.com/markkerry)
+```
+
+Which will display as follows:
 
 link to [Github](https://github.com/markkerry)
 
-```powershell
-$uptime = Get-ComputerInfo | Select-Object OSUptime
-if ($Uptime.OsUptime.Days -ge 7) {
-    Write-Output "Device has not rebooted in $($Uptime.OsUptime.Days) days, notify user to reboot"
-}
-else {
-    Write-Output "Device has rebooted $($Uptime.OsUptime) days ago"
-}
-```
-
 ---
 
-table
+## Tables
+
+And finally tables. Structure them as follows
+
+```
+| Name | Age |
+| ---- | --- |
+| Mark | Old |
+```
+
+To display the following:
 
 | Name | Age |
 | ---- | --- |
 | Mark | Old |
+
+That should be enough to get me writting in markdown for now
