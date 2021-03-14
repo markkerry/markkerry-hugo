@@ -1,7 +1,7 @@
 ---
 title: "Running a Local Go Web App in Docker"
 date: 2021-03-12T14:35:09Z
-draft: true
+draft: false
 tags: ["docker","containers","go","golang"]
 ---
 
