@@ -2,7 +2,7 @@
 title: "Running a Local Go Web App in Docker"
 date: 2021-03-14T14:35:09Z
 draft: false
-tags: ["docker","containers","go","golang"]
+tags: ["docker"]
 ---
 
 In this post, I walk through creating a simple Go web app that runs in a Docker container, and lists the hostname of the container it's running in. I chose Go as I've recently gotten started writing code in Go and it's a lot of fun to work with.
