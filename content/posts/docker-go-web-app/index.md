@@ -37,7 +37,7 @@ COPY . .
 
 RUN go get -d -v ./...
 RUN go install -v ./...
-
+EXPOSE 3000
 CMD ["app"]
 ```
 
@@ -65,10 +65,10 @@ import (
 
 func homePage(w http.ResponseWriter, r *http.Request) {
     hostname, err := os.Hostname()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
     fmt.Fprintf(w, "Go App running on host: %s\n", hostname)
 }
 
@@ -78,10 +78,10 @@ func setupRoutes() {
 
 func main() {
     hostname, err := os.Hostname()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
     fmt.Printf("Go Web App Started on Port 3000 on host: %s\n", hostname)
     setupRoutes()
     http.ListenAndServe(":3000", nil)
@@ -110,19 +110,32 @@ I have two docker containers in my example. The one we just created is called __
 
 ## Run the Container
 
-Finally, let's run the container from the image, but ensure we automatically delete the container after it is stopped.
+Finally, let's run the container from the image, but ensure we automatically delete the container after it is stopped. The `-d` flag will ensure it runs detached (non-interactive), the `-rm` flag will remove the container when it is stopped, and the `-p` flag will map local port 3000 to port 3000 in the container
 
 ```bash
-docker run -it --rm --name running-app go-app
+docker run -d --rm -p 3000:3000 --name running-app go-app
 ```
-
-![dockerRun](images/dockerRun.jpg)
 
 Now browse to http://localhost:3000 to see the running container in your browser
 
+![web](images/web.jpg)
+
+Running `docker container ls` will display the running container and it's port mapping below.
+
+```bash
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+06f02ddabedd        go-app              "app"               6 seconds ago       Up 5 seconds        0.0.0.0:3000->3000/tcp   running-app
+```
+
 ## Wrapping Up
 
-Click `ctrl + c` to cancel out of the interactive container session.
+To stop the container run
+
+```bash
+docker container stop running-app
+```
+
+If you ran the container with the `-it` (interactive) flag instead of `-d` (detached), press `ctrl + c` to cancel out of the interactive container session.
 
 Running `docker container ls` will show the container not only is no longer running, but was also deleted after it was stopped.
 

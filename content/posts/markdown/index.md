@@ -57,7 +57,7 @@ Bold __text__ can be defined in **two** different ways. Using double underscores
 Bold __text__ can be defined in **two** different ways
 ```
 
-Italic _text_ can be defined in *two* different ways. Using double underscores `'_'` or double asterisk `'*'`
+Italic _text_ can be defined in *two* different ways. Using single underscores `'_'` or single asterisk `'*'`
 
 ```
 Italic _text_ can be defined in *two* different ways
