@@ -2,9 +2,12 @@
 title: "Kubernetes - Part 1 Lab Setup"
 date: 2021-03-05T12:04:23Z
 draft: true
+tags: ["Kubernetes", "CentOS", "Hyper-V"]
 ---
 
-Intro
+This post will focus on the VM creation and configuration of our 3 machines. You can start by downloading [Centos 8 from here](https://www.centos.org/download/)
+
+<br>
 
 ## 1. Installing CentOS 8
 
@@ -45,6 +48,8 @@ sudo yum update
 After the updates are all installed you can either move onto the next part for the kubemaster VM, or complete part 1 again for workernode1 and workernode2.
 
 ---
+
+<br>
 
 ## 2. Setting a Static IP
 
@@ -99,6 +104,8 @@ Now reboot the machine. I recommend from here you complete configuring all three
 
 ---
 
+<br>
+
 ## 3. Update the hosts File
 
 Updating the hosts files allows for communication over hostname rather than IP address. Change the hosts file on each machine as follows:
@@ -123,9 +130,17 @@ Once complete, you can save you changes by pressing the Esc key then
 
 ---
 
+<br>
+
 ## 4. CentOS Firewall
 
+TBC
+
+<br>
+
 ---
+
+<br>
 
 ## 5. Generate a SSH Key Pair
 

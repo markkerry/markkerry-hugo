@@ -9,6 +9,8 @@ If you scroll to the bottom of any page of this site, you will notice the words 
 
 Here is my quick reference for writing in Markdown.
 
+<br>
+
 ## Headers
 
 ```markdown
@@ -26,6 +28,8 @@ Display as follows:
 ### Header 3
 
 ---
+
+<br>
 
 ## Code Snips
 
@@ -49,6 +53,8 @@ else {
 
 ---
 
+<br>
+
 ## Bold and Italics
 
 Bold __text__ can be defined in **two** different ways. Using double underscores `'__'` or double asterisk `'**'`
@@ -64,6 +70,8 @@ Italic _text_ can be defined in *two* different ways
 ```
 
 ---
+
+<br>
 
 ## Lists
 
@@ -96,6 +104,8 @@ Unordered lists
 
   ---
 
+<br>
+
 ## Images
 
 ```
@@ -103,6 +113,8 @@ Unordered lists
 ```
 
 ![IMAGE](images/wsl.jpg)
+
+<br>
 
 ## Links
 
@@ -117,6 +129,8 @@ Which will display as follows:
 link to [Github](https://github.com/markkerry)
 
 ---
+
+<br>
 
 ## Tables
 

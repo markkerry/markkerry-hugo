@@ -11,12 +11,16 @@ The container will install Go, so there is no need to install it locally on your
 
 First, lets take a look at the folder structure of where to keep your `dockerfile` and `main.go` code.
 
+<br>
+
 ## Folder Structure
 
 ```terminal
 ~/dockerfile
 ~/go/src/app/main.go
 ```
+
+<br>
 
 ## dockerfile
 
@@ -41,6 +45,8 @@ EXPOSE 3000
 CMD ["app"]
 ```
 
+<br>
+
 ## main.go
 
 Now let's create the main.go file and the folder structure to store it.
@@ -64,11 +70,13 @@ import (
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
+    // get the hostname of the container
     hostname, err := os.Hostname()
     if err != nil {
         fmt.Println(err)
         os.Exit(1)
     }
+    // print the hostname of the container
     fmt.Fprintf(w, "Go App running on host: %s\n", hostname)
 }
 
@@ -77,16 +85,14 @@ func setupRoutes() {
 }
 
 func main() {
-    hostname, err := os.Hostname()
-    if err != nil {
-        fmt.Println(err)
-        os.Exit(1)
-    }
-    fmt.Printf("Go Web App Started on Port 3000 on host: %s\n", hostname)
+    // print to terminal if container run with -it flag
+    fmt.Printf("Go Web App Started on Port 3000\n")
     setupRoutes()
     http.ListenAndServe(":3000", nil)
 }
 ```
+
+<br>
 
 ## Build the Container
 
@@ -108,12 +114,22 @@ I have two docker containers in my example. The one we just created is called __
 
 ![dockerImage](images/dockerImage.jpg)
 
+<br>
+
 ## Run the Container
 
 Finally, let's run the container from the image, but ensure we automatically delete the container after it is stopped. The `-d` flag will ensure it runs detached (non-interactive), the `-rm` flag will remove the container when it is stopped, and the `-p` flag will map local port 3000 to port 3000 in the container
 
 ```bash
 docker run -d --rm -p 3000:3000 --name running-app go-app
+```
+
+Let's run the curl command to see what happens
+
+```bash
+curl localhost:3000
+
+Go App running on host: 18987a97c027
 ```
 
 Now browse to http://localhost:3000 to see the running container in your browser
@@ -123,9 +139,11 @@ Now browse to http://localhost:3000 to see the running container in your browser
 Running `docker container ls` will display the running container and it's port mapping below.
 
 ```bash
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
-06f02ddabedd        go-app              "app"               6 seconds ago       Up 5 seconds        0.0.0.0:3000->3000/tcp   running-app
+CCONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+18987a97c027        go-app              "app"               13 seconds ago      Up 12 seconds       0.0.0.0:3000->3000/tcp   running-app
 ```
+
+<br>
 
 ## Wrapping Up
 
