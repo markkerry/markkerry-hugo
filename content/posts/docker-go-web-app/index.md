@@ -147,7 +147,7 @@ CCONTAINER ID        IMAGE               COMMAND             CREATED            
 
 ## Wrapping Up
 
-To stop the container run
+To stop the container, simply run
 
 ```bash
 docker container stop running-app
@@ -155,7 +155,7 @@ docker container stop running-app
 
 If you ran the container with the `-it` (interactive) flag instead of `-d` (detached), press `ctrl + c` to cancel out of the interactive container session.
 
-Running `docker container ls` will show the container not only is no longer running, but was also deleted after it was stopped.
+Running `docker container ls` will show the container is no longer running and was also deleted after it stopped.
 
 If you want to delete the image, get the IMAGE ID by running `docker image ls`, then running the following (8128cf5f8047 in my example is the IMAGE ID):
 
@@ -163,4 +163,4 @@ If you want to delete the image, get the IMAGE ID by running `docker image ls`, 
 docker image rm 8128cf5f8047
 ```
 
-Next I plan the create a container which does something else than simply run a web page stating the host of the container it is running in. But this does feel like a nice first step when progressing towards Docker Swarm or Kubernetes, where I will hopefully look to deploy to an Azure Container Instance or Azure Kubernetes Service.
+Next I plan the create a container which does something else than simply run a web page stating the host of the container it is running in. But this does feel like a nice first step when progressing towards Docker Swarm or Kubernetes. Also, I will hopefully look to deploy to an Azure Container Instance or Azure Kubernetes Service.
