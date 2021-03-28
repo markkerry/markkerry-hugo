@@ -3,6 +3,11 @@ title: "Markdown Reference"
 date: 2021-02-22T17:47:44Z
 draft: false
 tags: ["markdown"]
+cover:
+    image: "images/cover.png"
+    alt: "<alt text>"
+    caption: "A Markdown Reference"
+    relative: false # To use relative path for cover image, used in hugo Page-bundles
 ---
 
 If you scroll to the bottom of any page of this site, you will notice the words "Powered by [Hugo](https://gohugo.io)", and all posts generated in a Hugo static web app are written in markdown. Having owned a [Github](https://github.com/markkerry) account for a few years now, I have some experience writing readme files in markdown. 

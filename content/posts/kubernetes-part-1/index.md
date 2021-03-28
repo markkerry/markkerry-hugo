@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes - Part 1 Lab Setup"
-date: 2021-03-05T12:04:23Z
+date: 2021-03-06T12:04:23Z
 draft: true
 tags: ["Kubernetes", "CentOS", "Hyper-V"]
 ---

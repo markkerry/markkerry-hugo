@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Kubernetes"
-date: 2021-02-26T12:19:49Z
+date: 2021-02-28T12:19:49Z
 draft: true
 tags: ["Kubernetes", "CentOS", "Hyper-V"]
 ---

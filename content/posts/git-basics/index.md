@@ -2,12 +2,17 @@
 title: "Git Basics"
 date: 2021-03-21T15:23:16Z
 draft: false
-tags: ["Git"]
+tags: ["Git", "GitHub"]
+cover:
+    image: "images/cover.png"
+    alt: "<alt text>"
+    caption: "Learn how to commit code to a remote GitHub repository"
+    relative: false
 ---
 
 Here are some basics. I'm going to push the code from my [last post](https://markkerry.github.io/posts/docker-go-web-app/) to GitHub. In this example I am using PowerShell with Git and GitHub Desktop already installed. You will have to ensure you sign into GitHub Desktop with your GitHub account.
 
-Tip: You install and import the PowerShell module [posh-git](https://www.powershellgallery.com/packages/posh-git/1.0.0) for the Git summary status info to display in your terminal.
+Tip: You can install and import the PowerShell module [posh-git](https://www.powershellgallery.com/packages/posh-git/1.0.0) for the Git summary status info to display in your terminal.
 
 <br>
 
