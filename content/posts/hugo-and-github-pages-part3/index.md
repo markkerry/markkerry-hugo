@@ -1,7 +1,7 @@
 ---
 title: "HUGO Static Site Hosted on GitHub Pages - Part 3: Build and Deploy"
-date: 2021-04-04T12:49:43Z
-draft: true
+date: 2021-04-04T12:09:43Z
+draft: false
 tags: ["HUGO", "GitHub Pages", "GitHub Actions"]
 cover:
     image: "images/cover.png"
@@ -131,9 +131,11 @@ git push -u origin main
 
 Browse to your username-hugo repo on GitHub and select __Actions_. Select the workflow and the workflow run which will show you then status.
 
-image
+![actionCommit](images/actionCommit.png)
 
 Select __deploy__ to see the status of each job within the Action
+
+![actionSummary](images/actionSummary.png)
 
 <br>
 

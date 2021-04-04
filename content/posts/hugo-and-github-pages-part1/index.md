@@ -1,7 +1,7 @@
 ---
 title: "HUGO Static Site Hosted on GitHub Pages - Part 1: Intro"
-date: 2021-04-04T12:53:43Z
-draft: true
+date: 2021-04-04T12:13:43Z
+draft: false
 tags: ["HUGO", "GitHub Pages", "GitHub Actions"]
 cover:
     image: "images/cover.png"
