@@ -1,6 +1,6 @@
 ---
 title: "HUGO Static Site Hosted on GitHub Pages - Part 3: Build and Deploy"
-date: 2021-03-28T12:49:43Z
+date: 2021-04-04T12:49:43Z
 draft: true
 tags: ["HUGO", "GitHub Pages", "GitHub Actions"]
 cover:
@@ -23,7 +23,7 @@ The two repos will be named as follows:
 * _username_-hugo (mine is markkerry-hugo)
 * _username_.github.io (mine is markkerry.github.io)
 
-The _username_-hugo is what we are going to commit our site to. The GitHub action will install HUGO, build the site, then push it to _username_.github.io
+The _username_-hugo repo is where we are going to commit our site to. Then we'll create GitHub action in this repo which will install HUGO, build the site, and push it to the other _username_.github.io repo after each commit/push.
 
 <br>
 
@@ -38,7 +38,7 @@ mkdir workflows
 cd workflows
 ```
 
-Mine looks like this `C:\git\repos\markkerry-hugo\.github\workflows`. Now create a main.yml file. Copy the content below but be sure to change `external_repository: username/username.github.io` to your GitHub username and repo.
+Now create a `main.yml` file. Mine looks like this `C:\git\repos\markkerry-hugo\.github\workflows\main.yml`. Copy the content below and paste into your main.yml file, but be sure to change `external_repository: username/username.github.io` to your GitHub username and repo.
 
 ```yaml
 name: github pages
@@ -80,7 +80,7 @@ Notice the Build section with `run: hugo --minify`? This is where the action use
 
 ### Create a GitHub Personal Access Token
 
-We need to create a GitHub secret as one repo will commit code to another one. Even though they are both repos within the same GitHub account. To do with we have to create a GitHub secret. 
+We need to create a GitHub secret as one repo will commit code to another one. Even though they are both repos within the same GitHub account.
 
 Browse to your GitHub account, select your account > __Settings__ > __Developer settings__ > __Personal access tokens__ > __Generate new token__
 
@@ -122,14 +122,14 @@ publishDir = "docs"
 Finally, we can commit the changes in our local repo, push them to the remote GitHub repo (username-hugo) and watch the GitHub action automatically build the site to the docs folder, then publish docs folder to the other repo (username.github.io)
 
 ```terminal
-cd c:\git\repos\markkerry-hugo
+cd c:\git\repos\username-hugo
 git add *
 git commit -m "initial commit"
 git remote add origin https://github.com/username/username-hugo.git
 git push -u origin main
 ```
 
-Browse to your username-hugo repo on GitHub and select __Actions_. Select the workflow and the workflow run which will show you then status. 
+Browse to your username-hugo repo on GitHub and select __Actions_. Select the workflow and the workflow run which will show you then status.
 
 image
 
@@ -139,4 +139,6 @@ Select __deploy__ to see the status of each job within the Action
 
 ### Check the Live Site
 
-Browse to https://username.github.io and see your newly built GitHub Pages site, which you developed locally and was built and deployed by a GitHub Action.
+Browse to https://username.github.io to see your newly built GitHub Pages site, which you developed locally, then built and deployed by GitHub Actions.
+
+Hopefully there is enough useful information in these posts to get you started. If I choose to change the name of my site to a custom domain, I'll post about the process at a later date.

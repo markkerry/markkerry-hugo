@@ -16,15 +16,13 @@ func main() {
     var title string = "Senior Infrastructure Engineer"
 
     fmt.Printf("Hi there, my name is %s and I'm a %s,\n", name, title)
-    fmt.Printf("documenting my cloud, coding and automation learning journey.")
 }
 ```
 
 ```terminal
 go run hi.go  
 
-Hi there, my name is Mark and I'm a Senior Infrastructure Engineer,
-documenting my cloud, coding and automation learning journey.
+Hi there, my name is Mark and I'm a Senior Infrastructure Engineer
 ```
 
 ## Learning about

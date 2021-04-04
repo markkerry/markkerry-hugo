@@ -1,6 +1,6 @@
 ---
 title: "HUGO Static Site Hosted on GitHub Pages - Part 1: Intro"
-date: 2021-03-28T12:53:43Z
+date: 2021-04-04T12:53:43Z
 draft: true
 tags: ["HUGO", "GitHub Pages", "GitHub Actions"]
 cover:
@@ -34,7 +34,7 @@ The following series of posts will walk through the process I used to create and
 
 ### What These Posts Will Cover
 
-There are already great docs out there to get you started with HUGO and GitHub Pages, but not all of them cover automating the build and deployment of the site. When I got started using HUGO, it took me a couple of attempts to get my head around the build part, and knowing exactly what needs to be deployed to GitHub Pages. I will attempt to explain that part in the posts.
+There are already great docs out there to get you started with HUGO and GitHub Pages, but not all of them cover automating the build and deployment of the site. When I got started using HUGO, it took me a couple of attempts to get my head around the build part, and knowing exactly what needs to be deployed to GitHub Pages. I will attempt to explain that in more detail in part 3 of these posts.
 
 <br>
 
