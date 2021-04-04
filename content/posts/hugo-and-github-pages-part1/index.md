@@ -53,10 +53,10 @@ There are already great docs out there to get you started with HUGO and GitHub P
 
 ![hugo-ghpages](images/hugo-ghpages.png)
 
-1. The local repo _username_-hugo is developed locally, changes committed and pushed to the remote repo in GitHub
-2. When the remote repo receives the new commit, it starts a GitHub action to build the site
+1. The local repo _username_-hugo is developed locally, changes committed and pushed to the remote repo in GitHub.
+2. When the remote repo receives the new commit, it starts a GitHub action to build the site.
 3. Once the GitHub Action completes the build, it deploys the built site to the _username_.github.io repo.
-4. The site is then available by browsing https://username.github.io
+4. The site is then available by browsing https://username.github.io.
 
 <br>
 
