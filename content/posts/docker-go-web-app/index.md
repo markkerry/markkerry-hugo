@@ -2,7 +2,7 @@
 title: "Running a Local Go Web App in Docker"
 date: 2021-03-14T14:35:09Z
 draft: false
-tags: ["docker", "Go"]
+tags: ["Docker", "Go", "Containers"]
 cover:
     image: "images/cover.png"
     alt: "<alt text>"
@@ -27,7 +27,7 @@ First, lets take a look at the folder structure of where to keep your `dockerfil
 
 <br>
 
-## dockerfile
+## Dockerfile
 
 The dockerfile contains the instruction of how to build our docker image and the app to run when the container is created from the image. Let's start by creating the dockerfile:
 

@@ -1,8 +1,8 @@
 ---
 title: "Installing & Configuring CentOS 8 Minimal Install"
-date: 2021-04-25T12:19:49Z
-draft: true
-tags: ["CentOS", "Hyper-V"]
+date: 2021-05-09T12:19:49Z
+draft: false
+tags: ["CentOS", "Linux", "Hyper-V"]
 cover:
     image: "images/centos.png"
     alt: "<alt text>"
@@ -10,11 +10,9 @@ cover:
     relative: false
 ---
 
-I wanted to start learning the basics of Kubernetes and thought the best way to get started was by creating a virtualised lab and starting from scratch. But I will not cover k8s in this post. Instead I will detail the initial setup of the CentOS 8 minimal install VM for a lab environment which can be used later for not only k8s but Ansible too.
+I wanted to start learning the basics of Kubernetes and thought the best way to get started was by creating a virtualised lab and starting from scratch. But I will not cover k8s in this post. Instead I will detail the initial setup of the CentOS 8 minimal install VM for a lab environment which can be used for k8s or Ansible.
 
 I used Hyper-V on Windows 10, connected to a "Default switch" (internal), and running 3x CentOS 8 VMs. This guide assumes you at least have a _basic_ knowledge of configuring virtual machines and the Linux command line.
-
-Related posts:
 
 [Centos 8 can be downloaded from here](https://www.centos.org/download/)
 
@@ -24,13 +22,23 @@ Related posts:
 
 The network configuration for the VMs in the lab look as follows
 
-| Server      | IP Address      | Gateway     |
-| ----------- | --------------- | ----------- |
-| kubemaster  | 172.26.32.19/16 | 172.26.32.1 |
-| workernode1 | 172.26.32.20/16 | 172.26.32.1 |
-| workernode2 | 172.26.32.21/16 | 172.26.32.1 |
+| Server      | IP Address        | Gateway      |
+| ----------- | ----------------- | ------------ |
+| kubemaster  | 172.23.242.120/16 | 172.23.240.1 |
+| workernode1 | 172.23.242.121/16 | 172.23.240.1 |
+| workernode2 | 172.23.242.122/16 | 172.23.240.1 |
 
-And each VM in the Hyper-V setup is as follows
+You can be flexible with the IP range above, I simply used the current IP range assigned to my Default Switch network adapter. You can find yours by typing the following command
+
+```powershell
+Get-NetIPAddress -InterfaceAlias "vEthernet (Default Switch)" -AddressFamily "IPv4" | Select InterfaceAlias,IPAddress
+```
+
+![getIP](images/getIP.png)
+
+<br>
+
+Each VM in the Hyper-V setup is as follows
 
 | Hyper-V Configuration | Value    |
 | --------------------- | -------- |
@@ -46,49 +54,51 @@ And each VM in the Hyper-V setup is as follows
 
 ## Installing CentOS 8
 
-Power on the first Virtual machine and boot from the CentOS ISO. Start by selecting the language and keyboard layout you want to install
+1. Power on the first Virtual machine and boot from the CentOS ISO. Start by selecting the language and keyboard layout you want to install
 
-Next you will be taken to the __INSTALLATION SUMMARY__ page
+2. Next you will be taken to the __INSTALLATION SUMMARY__ page
 
 ![InstallSummary](images/InstallSummary.jpg)
 
-Select __Installation Destination__, ensure the local disk is selected then click done.
+3. Select __Installation Destination__, ensure the local disk is selected then click done.
 
 ![disk](images/disk.jpg)
 
-Now select __Software Selection_. We want the Base Environment to be __Minimal Install_, select it then click done.
+4. Now select __Software Selection__. We want the Base Environment to be __Minimal Install__, select it then click done.
 
 ![MinimalInstall](images/MinimalInstall.jpg)
 
-Back on the INSTALLATION SUMMARY page, select __Network & Host Name__. First switch __Ethernet (eth0)__ to __ON__, then enter the Host Name as Kubemaster and click done. NOTE: the image below was taken when creating workernode1.
+5. Back on the INSTALLATION SUMMARY page, select __Network & Host Name__. First switch __Ethernet (eth0)__ to __ON__, then enter the Host Name as `kubemaster` and click done. NOTE: the image below was taken when creating workernode1.
 
 ![Network](images/NetworkSetupGUI.jpg)
 
-Select __Root Password__ and create a root password. Click done when complete.
+6. Select __Root Password__ and create a root password. Click done when complete.
 
-Lastly, select __User Creation__. Enter the __Full name__ and __User name__ as admin, tick "Make this user administrator", and enter a password for it. I set mine the same as the root password as it's only a lab environment. Click done when ready.
+7. Select __Time & Date__ and set your location. Click done when complete.
+
+8. Lastly, select __User Creation__. Enter the __Full name__ and __User name__ as admin, tick "Make this user administrator", and enter a password for it. I set mine the same as the root password as it's only a lab environment. Click done when ready.
 
 ![adminSetup](images/adminSetup.jpg)
 
-Now click _Begin Installation" if the INSTALLATION SUMMARY page should look as follows:
+9. Now click __Begin Installation__. The INSTALLATION SUMMARY page should look as follows:
 
 ![InstallSummary2](images/InstallSummary2.jpg)
 
-Once the installation is complete you can log into the VM with admin username and password. First job will be to update the OS which can be achieved with the following command
+10. Once the installation is complete you can log into the VM with THE `admin` username and password. First job will be to update the OS which can be achieved with the following command:
 
 ```terminal
 sudo yum update
 ```
 
-After the updates are all installed you can either move onto the next part for the kubemaster VM, or complete part 1 again for workernode1 and workernode2.
+![yumUpdate](images/yumUpdate.png)
 
----
+After the updates are all installed you can either move onto the next part for the kubemaster VM, or complete part 1 again for workernode1 and workernode2.
 
 <br>
 
-## 2. Setting a Static IP
+## Setting a Static IP
 
-The next important steps will be to configure static IPs and in part 3, configure the hosts file. The following will instruct you how to do this with the kubemaster VM's IP address. To follow this again for the workernodes, change the IP accordingly.
+The next important steps will be to configure static IPs and then configure the hosts file. The following will instruct you how to do this with the kubemaster VM's IP address. To follow this again for the workernodes, change the IP accordingly.
 
 First backup the resolve.conf file
 
@@ -107,7 +117,7 @@ Press the insert key to modify the file, change BOOTPROTO from dhcp to static an
 
 ```terminal
 BOOTPROTO=static
-IPADDR=172.26.32.19
+IPADDR=172.23.242.120
 ```
 
 Once complete, you can save you changes by pressing the Esc key then
@@ -126,7 +136,7 @@ Add the following to the file
 
 ```terminal
 NETWORKING=yes
-GATEWAY=172.26.32.1
+GATEWAY=172.23.240.1
 ```
 
 Once complete, you can save you changes by pressing the Esc key then
@@ -137,11 +147,13 @@ Once complete, you can save you changes by pressing the Esc key then
 
 Now reboot the machine. I recommend from here you complete configuring all three VMs before moving onto the next part.
 
----
+```terminal
+shutdown -r now
+```
 
 <br>
 
-## 3. Update the hosts File
+## Update the hosts File
 
 Updating the hosts files allows for communication over hostname rather than IP address. Change the hosts file on each machine as follows:
 
@@ -152,9 +164,9 @@ sudo vi /etc/hosts
 Add the following:
 
 ```terminal
-172.26.32.19 kubemaster
-172.26.32.20 workernode1
-172.26.32.21 workernode2
+172.23.242.120 kubemaster
+172.23.242.121 workernode1
+172.23.242.122 workernode2
 ```
 
 Once complete, you can save you changes by pressing the Esc key then
@@ -163,21 +175,19 @@ Once complete, you can save you changes by pressing the Esc key then
 :wq!
 ```
 
----
-
+<!--
 <br>
 
-## 4. CentOS Firewall
+## CentOS Firewall
 
 TBC
 
 <br>
 
----
-
+-->
 <br>
 
-## 5. Generate a SSH Key Pair
+## Generate a SSH Key Pair
 
 To enable us to easily access the worker nodes from the kubemaster for system administration, and possibly configuration management with Ansible it a later date, we can easily setup an SSH key-pair as follows:
 
@@ -197,5 +207,15 @@ ssh-copy-id admin@workernode2
 Test by connecting to the machine via SSH
 
 ```terminal
-ssh admin@workernode2
+ssh admin@workernode1
 ```
+
+<br>
+
+## Summary
+
+We have now successfully created 3 x CentOS 8 virtual machines with connectivity to each other and the internet. Each machine can ping each other via hostname, and the kubemaster can ssh onto both workernode1 and 2.
+
+![vms](images/vms.png)
+
+From here you can begin to install Kubernetes (future post), or install and configure Ansible (using different hostnames), again a future post.
