@@ -28,7 +28,7 @@ Hi there, my name is Mark and I'm a Senior Infrastructure Engineer
 ## Learning about
 
 * Microsoft Azure - Azure Functions, IaaS, IaC with ARM and Bicep
-* Code - PowerShell, Bash, Go, Git
+* Code - PowerShell, Bash, Go, Python, Git
 * Configuration Management - Azure DSC, Ansible, Windows / Linux OS
 * Containers & container orchestration - Docker, Kubernetes
 
