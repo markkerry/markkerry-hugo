@@ -44,19 +44,23 @@ The following cmdlets/advanced functions are available in the MSIPatches module.
 
 You can install the module from the PowerShell gallery
 
-``` powershell
+```powershell
 Install-Module MSIPatches
 
 # List the commands in the MSIPatches module
 Get-Command -Module MSIPatches
+```
 
-CommandType     Name                        Version    Source
------------     ----                        -------    ------
-Function        Get-MsiPatch                1.0.21     MSIPatches
-Function        Get-OrphanedPatch           1.0.21     MSIPatches
-Function        Move-OrphanedPatch          1.0.21     MSIPatches
-Function        Restore-OrphanedPatch       1.0.21     MSIPatches
+```terminal
+CommandType  Name                   Version  Source
+-----------  ----                   -------  ------
+Function     Get-MsiPatch           1.0.21   MSIPatches
+Function     Get-OrphanedPatch      1.0.21   MSIPatches
+Function     Move-OrphanedPatch     1.0.21   MSIPatches
+Function     Restore-OrphanedPatch  1.0.21   MSIPatches
+```
 
+```powershell
 # Get-Help
 Get-Help about_MSIPatches
 Get-Help Get-MsiPatches

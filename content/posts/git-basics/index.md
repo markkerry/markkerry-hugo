@@ -12,7 +12,7 @@ cover:
 
 Here are some basics. I'm going to push the code from my [last post](https://markkerry.github.io/posts/docker-go-web-app/) to GitHub. In this example I am using PowerShell with Git and GitHub Desktop already installed. You will have to ensure you sign into GitHub Desktop with your GitHub account.
 
-Tip: You can install and import the PowerShell module [posh-git](https://www.powershellgallery.com/packages/posh-git/1.0.0) for the Git summary status info to display in your terminal.
+> Tip: You can install and import the PowerShell module [posh-git](https://www.powershellgallery.com/packages/posh-git/1.0.0) for the Git summary status info to display in your terminal.
 
 <br>
 

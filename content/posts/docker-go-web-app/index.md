@@ -150,6 +150,19 @@ CCONTAINER ID        IMAGE               COMMAND             CREATED            
 
 <br>
 
+I can push the container to Docker Hub using the following commands
+
+```bash
+# Login. You will need a Docker Hub account
+docker login
+
+# tag the image. We gathered the image id earlier. You will need a Docker Hub account
+docker tag 8128cf5f8047 markkerry/go-app:v1
+
+# Push the image to Docker Hub
+docker push markkerry/go-app:v1
+```
+
 ## Wrapping Up
 
 To stop the container, simply run
