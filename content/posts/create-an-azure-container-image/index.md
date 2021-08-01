@@ -2,7 +2,7 @@
 title: "Create and Deploy an Azure Container Instance with Azure Bicep"
 date: 2021-06-25T17:27:51+01:00
 draft: true
-tags: ["Azure", "ARM Templates", "Bicep", "IaC", "Docker", "Go", "Containers"]
+tags: ["Azure", "ARM Templates", "Bicep", "IaC", "Azure Container Instance"]
 cover:
     image: "images/cover.png"
     alt: "<alt text>"
@@ -39,12 +39,17 @@ Now install the Bicep Visual Studio Code extension
 
 ## Create the Bicep File
 
-```bash
+parameters
+resource
+output
+
+```bicep
 param containerName string = 'go-app'
 param location string = 'westeurope'
 param imageName string = 'markkerry/go-app:v1'
 param cpuCores int = 1
 param memoryInGb int = 1
+param dnsName string = 'gowebapp001'
 
 resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2019-12-01' = {
   name: containerName
@@ -74,6 +79,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2019-12-01'
     osType: 'Linux'
     ipAddress: {
       type: 'Public'
+      dnsNameLabel: dnsName
       ports: [
         {
           protocol: 'TCP'
@@ -85,7 +91,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2019-12-01'
 }
 
 output containerIpv4Address string = containerGroup.properties.ipAddress.ip
-
+output containerDnsName string = containerGroup.properties.ipAddress.fqdn
 ```
 
 ## Compile the Bicep File
@@ -94,7 +100,7 @@ output containerIpv4Address string = containerGroup.properties.ipAddress.ip
 az bicep build --file .\containerInstance.bicep  
 ```
 
-45 line bicep file into an 85 line json. You can find the compiled json file here
+48 line bicep file into an 90 line json. You can find the compiled json file here
 
 ## Deploy the ARM Template
 
