@@ -4,7 +4,7 @@ title = "markkerry.github.io"
 theme = "PaperMod"
 publishDir = "docs"
 
-googleAnalytics = "G-XZDLE8M8RG"
+GoogleAnalyticsID = "G-XZDLE8M8RG"
 
 [[menu.main]]
 name = "About"
