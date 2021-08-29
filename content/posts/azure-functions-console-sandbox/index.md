@@ -1,7 +1,7 @@
 ---
 title: "Quick How-to: Using the Azure Functions Console Sandbox"
-date: 2021-08-24T13:31:00+01:00
-draft: true
+date: 2021-08-29T13:31:00+01:00
+draft: false
 tags: ["Azure", "Azure Function"]
 cover:
     image: "images/cover.png"
