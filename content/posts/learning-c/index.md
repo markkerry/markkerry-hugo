@@ -99,9 +99,16 @@ int main(void)
 }
 ```
 
-At the start of the program is two `//` forward slashes, followed by text. These are comments which the program ignores.
+At the start of the program is two `//` forward slashes, followed by text. These are comments which the program ignores. A multi-line string can be started with `/*` and ended with `*/` as below.
 
-Notice a `char` requires single quotes `'B'`, and an `int` or `float` does not. And a string requires double quotes "".
+```c
+/* 
+Mult-line
+comment block
+*/
+```
+
+Notice a `char` in the first `printf()` function requires single quotes `'B'`, and an `int` or `float` does not. And a string requires double quotes "".
 
 The one in the float conversion character `%.1f`, means show one character after the decimal point.
 
@@ -161,38 +168,89 @@ This is a Test!
 
 ## Variables and Constants
 
+A characteristic of C is it's a "statically typed" language, which mean a variable's "data type" (int, char, float, etc) is explicitly declared before being assigned values.
+
+See the following program below as an example.
+
 ``` C
 #include <stdio.h>
 #include <string.h>
 #define NAME "Mark Kerry"
 
-// NAME constant defined above
-
-int n = 0;      /* Global Variables - before the main() function */
+// Global Variables - before the main() function
+int n = 0;
 char x = 'X';
 
 int main(void)
 {
-    long int l = 500000;    /* Local Variables - in the main() function */
+    // Local Variables - in the main() function
+    long int l = 500000;
     float f = 0.0002;
 
-    /* There is not a default string variable. You have to create a char array.
-    This can be done in a few different ways
-    */
     char name[11] = "Mark Kerry"; 
     char name2[] = "Mark Kerry";
     char name3[11];
     strcpy(name3, "Mark Kerry");
     
-    /* Code goes here */
+    // Code goes here
     
-    return 0;
 }
 ```
 
-## The if, else Statements
+> Notice the `void` inside the brackets of the main function; `int main(void)`. This means that the function returns no value. Which means we do not need to put `return 0;` as the end of the program.
 
-The if statement uses relational operators to check whether something is true and if so, executes code. If the statement is false the else statement to executes different code. 
+On line three there is a new `#define` pre-processor directive. This is a "constant" of NAME with a string type value of "Mark Kerry". Constants are similar to variables, only they cannot be changed during the execution of the program.
+
+Next there are two "global variables" defined before the `main()` function. The variable `n` is an `int` data type with a value of `0`. And the variable `x` is a `char` data type with a value of `'X'`.
+
+Inside the `main()` function are some "local variables". One if a "long integer" and the other is a "float"
+
+Moving onto the `char` data type variables. There is not a default string variable in C. You have to create a `char` array, which can be done in a few different ways. First you can create the `char` variable and set the size of the array if you know the sting you want to include.
+
+```C
+char name[11] = "Mark Kerry"; 
+```
+
+But `Mark Kerry` including the space is 10 characters and 11 is specified. This is because the array is terminated by a hidden null character of `\0`. Therefore, the size of the array needs to be one more than the amount of characters in it. See below:
+
+```terminal
+index      1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
+variable   M | a | r | k |   | K | e | r | r | y  | \0
+```
+
+You can define an array without an explicit size as seen in the next example:
+
+```C
+char name2[] = "Mark Kerry"; 
+```
+
+And finally you can initialise the array and set the index size, then use the `strcpy()` function - found in the `#include <string.h>` header file - to copy the string into the variable of the array.
+
+```C
+char name3[11];
+strcpy(name3, "Mark Kerry");
+```
+
+## If Else Statements
+
+I'll finish this post by going over the "if else" statement and using relational and logical operators within them.
+
+The if statement uses relational, equality and logical operators to check whether something is true and if so, executes code. If the statement is false, the else statement executes different code.
+
+### Relational and Equality Operators
+
+Relational and equality operators compare two operands and return an `int` of true `1` or false `0`.
+
+| Operator | Meaning                  |
+| -------- | ------------------------ |
+| <        | Less than                |
+| >        | Greater than             |
+| ==       | Equal to                 |
+| <=       | Less than or equal to    |
+| >=       | Greater than or equal to |
+| !=       | Not equal to             |
+
+let's start by looking at the relational operators in example code below.
 
 ``` C
 int a;
@@ -217,19 +275,42 @@ else
 }
 ```
 
-## Logical Operators
+First, two integer variables of `a` and `b` are defined with no values. Then the `printf()` function asks for a positive number to be entered in the terminal, and it does that with the `scanf()` function. This function wants a decimal integer (`%d` conversion character) to be entered and will assign it to the `a` variable. Then the same for the `b` variable.
+
+The `if` statement says if `a` is less than `b` is true, then do this. The `else if` statement says if `a` is equal to `b` is true, then do this. And finally the `else` statement, which must mean `a` is greater than `b` is true, do this.
+
+### Logical Operators
+
+Logical operators evaluate each operand and whether they result in `1` or `0`.
+
+| Operator | Meaning |
+| -------- | ------- |
+| &&       | And     |
+| ||       | Or      |
+
+let's take a look at the logical operators in example code below.
 
 ```C
-if ((num >= 10) && (num <= 100))
+// And logical operator
+if ((num >= 10) && (num2 <= 100))
 {
-    // num is between 10 and 100
+    // do something
 }
 
+// Or logical operator
 if ((num == 0) || (num2 > 1000))
 {
     // do something
 }
 ```
+
+In the first "and" example, if __both__ operands evaluate as `1` then the if statement is true and the code within will run.
+
+In the second "or" example, if __either__ on of the operands evaluate as `1` then the if statement is true and the code within will run.
+
+## Summary
+
+That's it... Key below...
 
 ## Key
 
