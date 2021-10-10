@@ -1,7 +1,7 @@
 ---
 title: "Automated Autopilot Tenant Move Part 1: Using Graph, Azure Functions and Azure Storage"
-date: 2021-09-30T10:31:24+01:00
-draft: true
+date: 2021-09-26T10:31:24+01:00
+draft: false
 tags: ["Azure", "Azure Function", "PowerShell", "Autopilot", "Serverless", "Microsoft Graph"]
 cover:
     image: "images/cover.png"
@@ -14,10 +14,10 @@ Thanks to [Powers-Hell (Ben)](https://powers-hell.com/2021/06/16/create-advanced
 
 ## Introduction
 
-There may be a scenario where you need all of your Intune managed, Autopilot registered devices to setup on another new tenant. But there are a few challenges you will face:
+There may be a scenario where you need all of your Intune managed, Autopilot registered devices setup on a new tenant. But there are a few challenges you will face:
 
 * An OEM may have uploaded every device's hardware hash to Autopilot, so you do not have them to upload to the new tenant.
-* An Autopilot device cannot be deleted from the registration service while it is a "managed device" (enrolled in Intune).
+* An Autopilot device cannot be deleted from the registration service while it's a "managed device" (enrolled in Intune).
 * The device will need to be reset and Autopilot provisioned in the new tenant, so setting a machine to wipe, then deleting from one tenant and registering with another, is a manual task which you may fail to complete during the device reset.
 
 This post will provide a high-level overview of the automated process to go from one tenant to another. This can be achieved by sending the hardware hash csv file to an Azure Storage Account, using an Azure Function to de-register from one tenant, another Function to register with another tenant, all while the device is resetting. It assumes you have a good fundamental understanding of Azure Storage, Azure Functions and performing MS Graph queries.
@@ -39,7 +39,7 @@ See the drawing below for a full overview of the end-to-end process. In the exam
 5. Azure Function 2 then downloads the "serialnumber.csv" from the Storage Account using a different SAS.
 6. Azure Function 2 imports the csv information, authenticates to graph using an App Registration in Tenant B and performs graph queries to register the device and sync the Autopilot registration service.
 7. Function 1 sends back the HTTP response to the client.
-8. The client completes the script by resetting the device and connecting to the Autopilot registration service in Tenant B.
+8. The client completes the script by resetting the device and Autopilot provisioning in Tenant B.
 
 ## Resource Requirements
 
