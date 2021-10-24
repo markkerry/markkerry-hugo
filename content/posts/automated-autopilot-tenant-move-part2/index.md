@@ -10,7 +10,7 @@ cover:
     relative: false
 ---
 
-Following on from my previous post, this one provides a far simpler process to automatically de-register your Windows Autopilot devices from one tenant, and provision them in another tenant.
+Following on from my previous post, this one provides a far simpler process to automatically de-register your Windows Autopilot devices from one tenant, and provision them in another tenant. It's not exactly a "part 2", rather a different, simpler approach.
 
 I came across a great post on [MsEndpointMgr](https://msendpointmgr.com/2019/06/01/intune-tenant-to-tenant-migration-with-autopilot/) which details the steps to extract your Autopilot profile in the new tenant, and copy to the machines in the old tenant ready for them to be wiped. But the process was missing an automated way to delete the Intune Managed Device, delete the current Autopilot registration and then wipe the device. This post will cover those gaps so the end-to-end process is fully automated.
 
@@ -67,6 +67,8 @@ First we need to create the App registration in Tenant A, which has all the rele
 ![AppReg5](images/AppReg5.png)
 
 * Back on the API permissions page, select __Grant consent__ for the tenant.
+
+> Note: Here you can also remove __User.Read__ as this is not required and the default permission when creating an app registration
 
 ![AppReg6](images/AppReg6.png)
 
@@ -145,3 +147,77 @@ IntuneWinAppUtil.exe -c C:\Win32Apps\AutopilotTenantMove -s Invoke-AutopilotTena
 
 ## Upload the Win32 App to Intune in Tenant A
 
+Finally we can upload the `intunewin` file to MEM.
+
+* Open the __Microsoft Endpoint Manager__ portal.
+* Click __Apps__
+* Click __Windows__
+* Click __Add__
+* Under __App type__, in the drop-down list select __Windows app (Win32)__
+* Then click __Select__
+* Click __Select app package file__
+* Under __App package file__ , click the blue folder icon and browse to and select `C:\Win32Apps\AutopilotTenantMoveOutput\Invoke-AutopilotTenantMove.intunewin`
+* Click __OK__
+* In the __App information__ tab, file in the details as you wish. Below is an example.
+
+![app1](images/app1.png)
+
+* The contents of the __Description__ box is written in markdown as follows with the following syntax:
+
+```markdown
+# WARNING
+
+## Only run this app when instructed by a member of the IT department.
+
+* Running this app will wipe your device, de-registering from Tenant A and registering with Tenant B.
+* Ensure you have backed up all of your files before you proceed.
+* Ensure your laptop is plugged into the power supply.
+```
+
+> Note: for the logo, I used the Intune.png file from the [GitHub repo.](https://github.com/markkerry/automated-autopilot-tenant-move-simplified)
+
+* Click __Next__
+* On the __Program__ tab, put __Install.cmd__ as the __Install command__
+* The __Uninstall command__ is __Uninstall.cmd__
+* For __Install behaviour__ select __System__
+* Click __Next__
+
+![app2](images/app2.png)
+
+* On the __Requirements__ tab select whatever suits your needs. I have selected 64-bit OS and the oldest supported OS at the time of writing.
+* Click __Next__
+
+![app3](images/app3.png)
+
+* On the __Detection rules__ tab, click the __Rules format__ drop-down list and select __Manually configure detection rules__
+* Click __Add__
+* In the __Rule type__ drop-down list, select __File__
+* Put the path as __C:\Users\Public\Documents\IntuneDetectionLogs__
+* Put the __File or folder__ as __AutopilotTenantMove.log__
+* Set the __Detection method__ as __File or folder exists__
+* Leave __Associated with a 32-bit app on 64-bit clients__ as __No__
+
+![app4](images/app4.png)
+
+* Click __OK__
+* Click __Next__
+* CLick __Next__ on the __Dependencies__ tab
+* Click __Next__ on the __Supersedence (preview)__ tab
+* Finally, on the __Assignments__ tab, under __Available for enrolled devices__, select __Add group__ and select a test/pilot group of users.
+
+> NOTE: You do not want to set as required or apply to all without testing. Device wipe will occur at the end of the script.
+
+![app5](images/app5.png)
+
+* Click __Next__
+* On the __Review + create__ page, check you are happy with everything and click __Create__
+
+![app6](images/app6.png)
+
+## Run the App
+
+Now we can test the process. Using a test user from the group you made the app available from, open the Company Portal app. You should see the newly packaged app where you can test the process.
+
+> NOTE: To troubleshoot any problems, open __C:\Users\Public\Documents\IntuneDetectionLogs\ AutopilotTenantMove.log__
+
+![companyPortal](images/companyPortal.png)
