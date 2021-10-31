@@ -1,7 +1,7 @@
 ---
 title: "Automated Autopilot Tenant Move Part 2: Using PowerShell and Graph"
-date: 2021-10-14T11:19:49+01:00
-draft: true
+date: 2021-10-31T09:19:49+01:00
+draft: false
 tags: ["PowerShell", "Autopilot", "Microsoft Graph"]
 cover:
     image: "images/cover.png"
@@ -20,7 +20,7 @@ Throughout the post the old tenant will be referred to as "Tenant A" and the new
 
 Here is a high-level overview of the process:
 
-1. From the Company Portal, the process begins when the PowerShell script (packages as a Win32 app) is invoked.
+1. From the Company Portal, the process begins when the PowerShell script (packaged as a Win32 app) is invoked.
 2. The script will copy Tenant B's Autopilot configuration file (AutopilotConfigurationFile.json) to `C:\Windows\Provisioning\Autopilot` on the local machine. The json file is in the same app package as the script.
 3. Using MS Graph and an App Registration in Tenant A, the script will gather the local machines "Managed Device" and delete it from Intune, then delete the Autopilot Registered Device, and finally sync the Autopilot Registration Service in Tenant A.
 4. A function within the PowerShell script will wipe the device via WMI/CIM. Note: The `C:\Windows\Provisioning\Autopilot` and it's content remains intact during a device reset.
@@ -33,8 +33,8 @@ Assuming Tenant B is fully provisioned and ready to go, the following is require
 First we need to create the App registration in Tenant A, which has all the relevant permissions to delete an Intune Manage Device and Autopilot device registration.
 
 * Open Azure Active Directory
-* Click App Registration
-* Click New registration
+* Click __App Registration__
+* Click __New registration__
 * Give it a name of __AutopilotTenantMove__
 * Under __Support account types__ select __Accounts in this organizational directory only__
 
@@ -42,25 +42,25 @@ First we need to create the App registration in Tenant A, which has all the rele
 
 * Click __Register__
 * In the newly created App Registration, select __API permissions__
-* Click Add a permission
+* Click __Add a permission__
 
 ![AppReg2](images/AppReg2.png)
 
-* Under Microsoft APIs, select Microsoft Graph
+* Under Microsoft APIs, select __Microsoft Graph__
 
 ![AppReg3](images/AppReg3.png)
 
-* Click Application permissions
+* Click __Application permissions__
 
 ![AppReg4](images/AppReg4.png)
 
 * Scroll down to __DeviceManagementManagedDevices__, expand it and tick the box for __DeviceManagementManagedDevices.ReadWrite.All__.
 
-> This is required to delete Intune Managed device
+> _This is required to delete Intune Managed device_
 
 * Scroll down to __DeviceManagementServiceConfig__, expand it and tick the box for __DeviceManagementServiceConfig.ReadWrite.All__.
 
-> This is required to delete the Autopilot device registration
+> _This is required to delete the Autopilot device registration_
 
 * Then select __Add permissions__
 
@@ -68,7 +68,7 @@ First we need to create the App registration in Tenant A, which has all the rele
 
 * Back on the API permissions page, select __Grant consent__ for the tenant.
 
-> Note: Here you can also remove __User.Read__ as this is not required and the default permission when creating an app registration
+> _Note: Here you can also remove __User.Read__ as this is not required and the default permission when creating an app registration_
 
 ![AppReg6](images/AppReg6.png)
 
@@ -90,7 +90,7 @@ First we need to create the App registration in Tenant A, which has all the rele
 
 ## Autopilot Profile from Tenant B
 
-In this part we will extract the Autopilot profile from Tenant B in the form of a json file, which will be used later to add to the `C:\Windows\Provisioning\Autopilot` directory of the devices before they are deleted and reset. Perform the following.
+In this part we will extract the Autopilot profile from Tenant B in the form of a json file, which will be used later to add to the `C:\Windows\Provisioning\Autopilot` directory of the devices before they are deleted and reset. Perform the following:
 
 * Run PowerShell as admin
 * Type `Install-Module WindowsAutopilotIntune -Force`
@@ -123,10 +123,10 @@ $tenantID = ''
 
 ```cmd
 C:\Win32Apps\AutopilotTenantMove
-        AutopilotConfigurationFile.json
-        Install.cmd
-        Invoke-AutopilotTenantMove.ps1
-        Uninstall.cmd
+    |__AutopilotConfigurationFile.json
+    |__Install.cmd
+    |__Invoke-AutopilotTenantMove.ps1
+    |__Uninstall.cmd
 ```
 
 * Now create a new directory called `C:\Win32Apps\AutopilotTenantMoveOutput`
@@ -174,7 +174,7 @@ Finally we can upload the `intunewin` file to MEM.
 * Ensure your laptop is plugged into the power supply.
 ```
 
-> Note: for the logo, I used the Intune.png file from the [GitHub repo.](https://github.com/markkerry/automated-autopilot-tenant-move-simplified)
+> _Note: for the logo, I used the Intune.png file from the [GitHub repo.](https://github.com/markkerry/automated-autopilot-tenant-move-simplified)_
 
 * Click __Next__
 * On the __Program__ tab, put __Install.cmd__ as the __Install command__
@@ -205,7 +205,7 @@ Finally we can upload the `intunewin` file to MEM.
 * Click __Next__ on the __Supersedence (preview)__ tab
 * Finally, on the __Assignments__ tab, under __Available for enrolled devices__, select __Add group__ and select a test/pilot group of users.
 
-> NOTE: You do not want to set as required or apply to all without testing. Device wipe will occur at the end of the script.
+> _NOTE: You do not want to set as required or apply to all without testing. Device wipe will occur at the end of the script._
 
 ![app5](images/app5.png)
 
@@ -218,6 +218,6 @@ Finally we can upload the `intunewin` file to MEM.
 
 Now we can test the process. Using a test user from the group you made the app available from, open the Company Portal app. You should see the newly packaged app where you can test the process.
 
-> NOTE: To troubleshoot any problems, open __C:\Users\Public\Documents\IntuneDetectionLogs\ AutopilotTenantMove.log__
+> _NOTE: To troubleshoot any problems, open C:\Users\Public\Documents\IntuneDetectionLogs\AutopilotTenantMove.log_
 
 ![companyPortal](images/companyPortal.png)
