@@ -12,13 +12,13 @@ cover:
 
 ## Introduction
 
-I've been coding in PowerShell for many years and wanted to step back and learn the basics of a language which many future languages were based; C++, C#, PowerShell, Go, etc. The biggest hurdle to get over was the change from an object-orientated language, such as PowerShell, to a functional language in C.
+I've been coding in PowerShell for many years and wanted to step back and learn the basics of a language which many future languages were based; C++, C#, PowerShell, Go, etc. The biggest hurdle I found when learning C, was the change from an object-orientated language, such as PowerShell, to a functional language in C.
 
 [Wikipedia's](https://en.wikipedia.org/wiki/C_(programming_language)) description of C:
 
 _"C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, with a static type system."_
 
-I won't go into too much detail as C is not a language I will ever code in. But learning it has been the perfect introduction to learning Go which is syntactically similar to C, and a modern language gaining much traction with developers and DevOps engineers. I'd like to create similar post in the future for Go and Python.
+I won't go into too much detail as C is not a language I will ever code in. But learning it has been the perfect introduction to learning Go which is syntactically similar to C, and a modern language gaining much traction with developers and DevOps engineers. I'd like to create similar post in the future for Go, Python and C#.
 
 So here are some of things I have learned about the C programming language.
 
@@ -168,7 +168,7 @@ This is a Test!
 
 ## Variables and Constants
 
-A characteristic of C is it's a "statically typed" language, which mean a variable's "data type" (int, char, float, etc) is explicitly declared before being assigned values.
+A characteristic of C is it's a "statically typed" language, which means a variable's "data type" (int, char, float, etc) is explicitly declared before being assigned values.
 
 See the following program below as an example.
 
@@ -197,15 +197,15 @@ int main(void)
 }
 ```
 
-> Notice the `void` inside the brackets of the main function; `int main(void)`. This means that the function returns no value. Which means we do not need to put `return 0;` as the end of the program.
+> Notice the `void` inside the brackets of the main function; `int main(void)`. This means that the function returns no value. Which means we do not need to put `return 0;` at the end of the program.
 
 On line three there is a new `#define` pre-processor directive. This is a "constant" of NAME with a string type value of "Mark Kerry". Constants are similar to variables, only they cannot be changed during the execution of the program.
 
 Next there are two "global variables" defined before the `main()` function. The variable `n` is an `int` data type with a value of `0`. And the variable `x` is a `char` data type with a value of `'X'`.
 
-Inside the `main()` function are some "local variables". One if a "long integer" and the other is a "float"
+Inside the `main()` function are some "local variables". One is a "long integer" and the other is a "float"
 
-Moving onto the `char` data type variables. There is not a default string variable in C. You have to create a `char` array, which can be done in a few different ways. First you can create the `char` variable and set the size of the array if you know the sting you want to include.
+Moving onto the `char` data type variables. There is not a default string variable in C. You have to create a `char` array, which can be done in a few different ways. First you can create the `char` variable and set the size of the array if you know the string you want to include.
 
 ```C
 char name[11] = "Mark Kerry"; 
@@ -283,10 +283,8 @@ The `if` statement says if `a` is less than `b` is true, then do this. The `else
 
 Logical operators evaluate each operand and whether they result in `1` or `0`.
 
-| Operator | Meaning |
-| -------- | ------- |
-| &&       | And     |
-| ||       | Or      |
+* && = And
+* || = Or
 
 let's take a look at the logical operators in example code below.
 
