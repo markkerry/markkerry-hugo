@@ -49,3 +49,15 @@ The `return` command can return information back to the caller.
 
 ## Handling Exceptions
 
+## Notes
+
+`using System` statement means to use code from the .Net System namespace
+
+`namespace` helps organise programs to prevent names inside your code from conflicting with names from other libraries.
+
+`class`. All C# is OOP and all code is organised into classes.
+
+`main` function/method is the entry point into every C# program.
+
+`Console.WriteLine("");`. The `Console` object originated from the `System` namespace and the `.WriteLine()` is a method in the console object. The semi-colon completes the statement.
+
