@@ -1,6 +1,6 @@
 ---
 title: "Introduction to C Programming"
-date: 2022-01-30T12:02:07+01:00
+date: 2022-01-30T12:27:31Z
 draft: false
 tags: ["C Programming"]
 cover:
