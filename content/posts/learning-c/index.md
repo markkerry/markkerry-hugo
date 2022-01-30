@@ -1,7 +1,7 @@
 ---
 title: "Introduction to C Programming"
-date: 2021-08-25T15:02:07+01:00
-draft: true
+date: 2022-01-30T12:02:07+01:00
+draft: false
 tags: ["C Programming"]
 cover:
     image: "images/cover.png"
