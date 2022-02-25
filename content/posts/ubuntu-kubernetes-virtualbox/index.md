@@ -1,6 +1,6 @@
 ---
 title: "Running a Kubernetes Cluster on Ubuntu and VirtualBox"
-date: 2022-02-10T14:39:52Z
+date: 2022-02-17T14:39:52Z
 draft: true
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes"]
 cover:
@@ -10,13 +10,13 @@ cover:
     relative: false
 ---
 
-In part one I created the adminbox VM and connected to the KubeNatNetwork (10.0.2.0/24)
+In a [previous post](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab/), I created the adminbox Ubuntu VM on VirtualBox.
 
 | server   | ip addr  | comment                                                      |
 | ---------| -------- | ------------------------------------------------------------ |
 | adminbox | 10.0.2.5 | Jump box from host with SSH access to all on the Nat network |
 
-Following the same process I have created a further 3 VMs also connected to the KubeNatNetwork. Note: these only have one network adapter.
+In this post will be using the same setup to build a Kubernetes cluster. I have created a further 3 VMs also connected to the KubeNatNetwork. Note: these only have one network adapter.
 
 * network address: 10.0.2.0/24
 * default gateway: 10.0.2.2
@@ -216,7 +216,9 @@ kubectl get nodes
 
 ![get-nodes](images/get-nodes.png)
 
-(Worker Nodes only) Join Nodes from the command copied earlier
+(Worker Nodes only) Join Nodes from the command copied earlier.
+
+> _Note: Change the $TOKEN_ID and $HASH to the appropriate values_
 
 ```bash
 sudo kubeadm join --token $TOKEN_ID ctrlplane:6443 --discovery-token-ca-cert-hash sha256:$HASH
@@ -276,8 +278,8 @@ kubectl get pods -o wide
 
 ```termial
 NAME                                READY   STATUS    RESTARTS   AGE     IP              NODE    NOMINATED NODE   READINESS GATES
-nginx-deployment-74d589986c-9mhft   1/1     Running   0          62s     10.10.166.129   node1   <none>           <none>
-nginx-deployment-74d589986c-gp54z   1/1     Running   0          9m35s   10.10.104.1     node2   <none>           <none>
+nginx-deployment-74d589986c-9mhft   1/1     Running   0          62s     10.10.166.132   node1   <none>           <none>
+nginx-deployment-74d589986c-gp54z   1/1     Running   0          9m35s   10.10.104.2     node2   <none>           <none>
 ```
 
 (Control plane only) If you want to run workloads on Control Plane it has to be untainted. Also we can up the replica count from 2 to 4
@@ -297,11 +299,23 @@ This now show 4 replicas across the 3 vms. The ctrlplane server is now running o
 
 ```terminal
 NAME                                READY   STATUS    RESTARTS   AGE     IP              NODE        NOMINATED NODE   READINESS GATES
-nginx-deployment-74d589986c-9mhft   1/1     Running   0          4m27s   10.10.166.129   node1       <none>           <none>
-nginx-deployment-74d589986c-gp54z   1/1     Running   0          13m     10.10.104.1     node2       <none>           <none>
+nginx-deployment-74d589986c-9mhft   1/1     Running   0          4m27s   10.10.166.132   node1       <none>           <none>
+nginx-deployment-74d589986c-gp54z   1/1     Running   0          13m     10.10.104.2     node2       <none>           <none>
 nginx-deployment-74d589986c-lwm2s   1/1     Running   0          21s     10.10.232.4     ctrlplane   <none>           <none>
 nginx-deployment-74d589986c-ndspp   1/1     Running   0          21s     10.10.166.130   node1       <none>           <none>
 ```
+
+Now we can test if nginx is running on node1 by typing:
+
+```terminal
+curl 10.10.166.132:80
+```
+
+![curlNode1](images/curlNode1.png)
+
+And node2:
+
+![curlNode2](images/curlNode2.png)
 
 ## Generate Token For Future Nodes
 
@@ -309,11 +323,7 @@ nginx-deployment-74d589986c-ndspp   1/1     Running   0          21s     10.10.1
 
 ```bash
 #Create a new Token
-sudo kubeadm token create
+kubeadm token create --print-join-command
 #List Tokens created
-sudo kubeadm token list
-#Find Certificate Hash on Master
-openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | 
-   openssl rsa -pubin -outform der 2(GREATER THAN SYMBOL)/dev/null | 
-   openssl dgst -sha256 -hex | sed 's/^.* //'
+kubeadm token list
 ```

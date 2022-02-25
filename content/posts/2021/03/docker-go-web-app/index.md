@@ -29,7 +29,7 @@ First, lets take a look at the folder structure of where to keep your `dockerfil
 
 ## Dockerfile
 
-The dockerfile contains the instruction of how to build our docker image and the app to run when the container is created from the image. Let's start by creating the dockerfile:
+The `dockerfile` contains the instruction of how to build our docker image and the app to run when the container is created from the image. Let's start by creating the dockerfile:
 
 ```teminal
 cd ~

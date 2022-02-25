@@ -36,8 +36,8 @@ The adminbox server will have a bridged adapter to the host and will be used to 
 | node1     | 10.0.2.11 | Kubernetes worker node 1                                     |
 | node2     | 10.0.2.12 | Kubernetes worker node 2                                     |
 | lb1       | 10.0.2.20 | Load Balancer configured by Ansible                          |
-| svr1      | 10.0.2.21 | Server 1 configured by Ansible                               |
-| svr2      | 10.0.2.22 | Server 2 configured by Ansible                               |
+| web1      | 10.0.2.21 | Web Server 1 configured by Ansible                           |
+| web2      | 10.0.2.22 | Web Server 2 configured by Ansible                           |
 
 ## Install VirtualBox 6.1
 
