@@ -45,7 +45,7 @@ Change the __Admin user__ from Disabled to __Enabled__. Copy the username and on
 
 ## Login to the Container Registry
 
-To login to the container registry from the Docker, I ran the following:
+To login to the container registry from Docker, I ran the following:
 
 ```terminal
 docker login acrmkmdsn.azurecr.io
@@ -63,7 +63,7 @@ In the root directory of the `dockerfile`, I built the container image.
 docker build -t go-app .
 ```
 
-Then I tagged it with the name of `go-app` and the new container registry
+I then tagged it with the name of `go-app` and the new container registry
 
 ```terminal
 docker tag go-app acrmkmdsn.azurecr.io/go-app
