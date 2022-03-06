@@ -92,7 +92,7 @@ sudo systemctl restart docker
 That completes the docker install. You can run the same commands above using a script as below:
 
 ```bash
-curl https://raw.githubusercontent.com/markkerry/ubuntu-config/mainkubernetes/01-k8s-installDocker.sh > installDocker.sh
+curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/01-k8s-installDocker.sh > installDocker.sh
 
 sudo chmod +x ./installDocker.sh && ./installDocker.sh
 ```
