@@ -1,7 +1,7 @@
 ---
 title: "Running a Kubernetes Cluster on Ubuntu and VirtualBox"
-date: 2022-02-17T14:39:52Z
-draft: true
+date: 2022-03-06T09:39:52Z
+draft: false
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes"]
 cover:
     image: "images/cover.svg"
@@ -16,7 +16,7 @@ In a [previous post](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab
 | ---------| -------- | ------------------------------------------------------------ |
 | adminbox | 10.0.2.5 | Jump box from host with SSH access to all on the Nat network |
 
-In this post will be using the same setup to build a Kubernetes cluster. I have created a further 3 VMs also connected to the KubeNatNetwork. Note: these only have one network adapter.
+In this post will be using the same setup to build a Kubernetes cluster and deploy an nginx container. I have created a further 3 VMs also connected to the KubeNatNetwork. Note: these only have one network adapter.
 
 * network address: 10.0.2.0/24
 * default gateway: 10.0.2.2
@@ -33,7 +33,7 @@ Each server also has an entry for each VM in the cluster, in their `/etc/hosts` 
 
 ## Install Docker
 
-(All hosts) The following commands to install the Docker engine
+(All hosts) The following commands are used to install the Docker engine
 
 ```bash
 # remove old versions
@@ -92,7 +92,7 @@ sudo systemctl restart docker
 That completes the docker install. You can run the same commands above using a script as below:
 
 ```bash
-curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/01-k8s-installDocker.sh > installDocker.sh
+curl https://raw.githubusercontent.com/markkerry/ubuntu-config/mainkubernetes/01-k8s-installDocker.sh > installDocker.sh
 
 sudo chmod +x ./installDocker.sh && ./installDocker.sh
 ```
@@ -180,8 +180,8 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 (Control plane only) Download the yaml files for the Calico pod network addon and the sample nginx deployment
 
 ```bash
-curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/calico.yaml -O
-curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/sample-deployment.yaml
+curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/calico.yaml -O
+curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/sample-deployment.yaml
 vim calico.yaml
 ```
 

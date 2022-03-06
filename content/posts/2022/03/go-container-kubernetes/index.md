@@ -1,6 +1,6 @@
 ---
 title: "Running a Go Docker Container in Kubernetes"
-date: 2022-02-18T11:41:47Z
+date: 2022-03-13T10:41:47Z
 draft: true
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes", "Go", "Docker"]
 cover:
@@ -12,9 +12,7 @@ cover:
 
 A while back I created a Go container which returns the hostname of the container its running on - [markkerry.github.io - Running a Local Go Web App in Docker](https://markkerry.github.io/posts/2021/03/docker-go-web-app/). Running this container from a Kubernetes cluster was what I had in mind when I created it. In this post I will walk through the steps I completed to create the Kubernetes deployment with an image pulled from Docker Hub.
 
-## MAKE SURE THESE LINKs ARE CORRECT
-
-I will be using the same Ubuntu server lab running on VirtualBox - [markkerry.github.io - Ubuntu Server 20.04 LTS Lab](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab/). And the same Kubernetes cluster built from this post - [markkerry.github.io - Running a Kubernetes Cluster on Ubuntu and VirtualBox](http://localhost:1313/posts/ubuntu-kubernetes-virtualbox/)
+I will be using the same Ubuntu server lab running on VirtualBox - [markkerry.github.io - Ubuntu Server 20.04 LTS Lab](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab/). And the same Kubernetes cluster built from this post - [markkerry.github.io - Running a Kubernetes Cluster on Ubuntu and VirtualBox](https://markkerry.github.io/posts/2022/03/ubuntu-kubernetes-virtualbox/)
 
 The official Kubernetes docs is what I used for reference - [kubernetes.io - Pull an Image from a Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
