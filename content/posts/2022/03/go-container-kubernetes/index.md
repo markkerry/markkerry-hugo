@@ -1,6 +1,6 @@
 ---
 title: "Running a Go Docker Container in Kubernetes"
-date: 2022-03-13T10:41:47Z
+date: 2022-03-07T10:11:47Z
 draft: true
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes", "Go", "Docker"]
 cover:

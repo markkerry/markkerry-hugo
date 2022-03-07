@@ -35,43 +35,64 @@ Each server also has an entry for each VM in the cluster, in their `/etc/hosts` 
 
 (All hosts) The following commands are used to install the Docker engine
 
-```bash
-# remove old versions
+Remove old versions
+
+```terminal
 sudo apt remove docker docker-engine docker.io containerd runc
+```
 
-# update the apt package index
+Update the apt package index
+
+```terminal
 sudo apt update
+```
 
-# install prereqs to allow apt ot install packages over https
+Install prereqs to allow apt to install packages over https
+
+```terminal
 sudo apt-get install \
     ca-certificates \
     curl \
     gnupg \
     lsb-release -y
+```
 
-# add Docker’s official GPG key
+Add Docker’s official GPG key
+
+```terminal
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
 
-# set up the stable repository
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+Set the stable repository
+
+```terminal
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
-# install Docker engine
+Install Docker engine
+
+```terminal
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+```
 
-# add user to Docker group
+Add user to Docker group
+
+```terminal
 sudo usermod -a -G docker $USER
+```
 
-# set Docker to start automatically
+Set Docker to start automatically
+
+```terminal
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 ```
 
 (All hosts) Set the docker daemon cgroup driver to use systemd.
 
-```bash
+```terminal
 sudo vim /etc/docker/daemon.json
 ```
 
@@ -85,13 +106,13 @@ Add the following
 
 Restart Docker
 
-```bash
+```terminal
 sudo systemctl restart docker
 ```
 
 That completes the docker install. You can run the same commands above using a script as below:
 
-```bash
+```terminal
 curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/01-k8s-installDocker.sh > installDocker.sh
 
 sudo chmod +x ./installDocker.sh && ./installDocker.sh
@@ -99,19 +120,19 @@ sudo chmod +x ./installDocker.sh && ./installDocker.sh
 
 Verify the install is complete by running
 
-```bash
+```terminal
 docker --version
 ```
 
 Restart the server
 
-```bash
+```terminal
 sudo systemctl reboot
 ```
 
 And ensure Docker is running by typing
 
-```bash
+```terminal
 docker image ls
 ```
 
@@ -119,7 +140,7 @@ docker image ls
 
 (All hosts) Add the K8S key and repo
 
-```bash
+```terminal
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -127,7 +148,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 
 (All hosts) Update the package repository and install the K8s components:
 
-```bash
+```terminal
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
@@ -135,15 +156,19 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 (All hosts) Disable the swap file
 
-```bash
+```terminal
 sudo swapoff -a
 ```
 
 Edit `/etc/fstab` to remove the swap entry by commenting it out
 
-```bash
+```terminal
 sudo vim /etc/fstab
+```
 
+To look something like the following:
+
+```terminal
 # /swap.img   none  swap  sw  0   0
 ```
 
@@ -151,7 +176,7 @@ Then restart the servers.
 
 (Control plane only) Initiate the cluster on the control plane
 
-```bash
+```terminal
 sudo kubeadm init --control-plane-endpoint ctrlplane:6443 --pod-network-cidr 10.10.0.0/16
 ```
 
@@ -163,7 +188,7 @@ Ensure you copy the `kubeadm join` command from the output as will be needed to 
 
 Can get the name of the host the cluster is running on by typing
 
-```bash
+```terminal
 kubectl cluster-info
 ```
 
@@ -171,7 +196,7 @@ kubectl cluster-info
 
 (Control plane only) Set the `kubectl` context auth to connect to the cluster
 
-```bash
+```terminal
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -179,7 +204,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 (Control plane only) Download the yaml files for the Calico pod network addon and the sample nginx deployment
 
-```bash
+```terminal
 curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/calico.yaml -O
 curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kubernetes/sample-deployment.yaml
 vim calico.yaml
@@ -194,15 +219,15 @@ Uncomment the `CALICO_IPV4POOL_CIDR` variable in the manifest (calico.yaml) and 
 
 (Control plane only) Apply the deployment:
 
-```bash
+```terminal
 kubectl apply -f calico.yaml
-
-# Ensure you copy the sudo kubeadm join --token command to be used later
 ```
+
+> _Ensure you copy the `sudo kubeadm join --token` command to be used later_
 
 Can put a watch on it and wait for it to complete
 
-```bash
+```terminal
 watch -n2 'kubectl get pods -A'
 ```
 
@@ -210,7 +235,7 @@ watch -n2 'kubectl get pods -A'
 
 Once complete, check the ctrlplane node is the only node and state is ready
 
-```bash
+```terminal
 kubectl get nodes
 ```
 
@@ -220,7 +245,7 @@ kubectl get nodes
 
 > _Note: Change the $TOKEN_ID and $HASH to the appropriate values_
 
-```bash
+```terminal
 sudo kubeadm join --token $TOKEN_ID ctrlplane:6443 --discovery-token-ca-cert-hash sha256:$HASH
 ```
 
@@ -228,7 +253,7 @@ sudo kubeadm join --token $TOKEN_ID ctrlplane:6443 --discovery-token-ca-cert-has
 
 (Control plane only) Once complete, check the ctrlplane has the nodes added
 
-```bash
+```terminal
 kubectl get nodes
 ```
 
@@ -236,7 +261,7 @@ kubectl get nodes
 
 Use the sample deployment file downloaded earlier
 
-```bash
+```terminal
 cat sample-deployment.yaml
 ```
 
@@ -268,7 +293,7 @@ spec:
 
 (Control plane only) Apply the deployment:
 
-```bash
+```terminal
 kubectl apply -f sample-deployment.yaml
 
 kubectl get deployments
@@ -284,10 +309,13 @@ nginx-deployment-74d589986c-gp54z   1/1     Running   0          9m35s   10.10.1
 
 (Control plane only) If you want to run workloads on Control Plane it has to be untainted. Also we can up the replica count from 2 to 4
 
-```bash
+```terminal
 kubectl taint nodes --all node-role.kubernetes.io/master-
+```
 
-# Change the replicas from 2 to 4
+Change the replicas from 2 to 4 in `sample-deployment.yaml`
+
+```terminal
 kubectl apply -f sample-deployment.yaml
 
 kubctl get deployments
@@ -321,9 +349,14 @@ And node2:
 
 (Control plane only) If you plan to add new nodes to the cluster at a later date and have lost the original token, can create a new one. Before we can use the manifest we need to be authenticated to the cluster. Generate a token to add worker Node
 
-```bash
-#Create a new Token
+Create a new Token:
+
+```terminal
 kubeadm token create --print-join-command
-#List Tokens created
+```
+
+List Tokens created
+
+```terminal
 kubeadm token list
 ```

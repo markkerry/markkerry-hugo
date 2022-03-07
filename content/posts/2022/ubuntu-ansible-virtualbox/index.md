@@ -1,6 +1,6 @@
 ---
 title: "Configure Ubuntu on VirtualBox with Ansible"
-date: 2022-02-24T16:32:05Z
+date: 2022-03-07T10:32:05Z
 draft: true
 tags: ["Linux", "Ubuntu", "VirtualBox", "Ansible"]
 cover:
