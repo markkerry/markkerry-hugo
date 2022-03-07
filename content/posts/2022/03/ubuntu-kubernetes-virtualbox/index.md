@@ -1,6 +1,6 @@
 ---
 title: "Running a Kubernetes Cluster on Ubuntu and VirtualBox"
-date: 2022-03-06T09:39:52Z
+date: 2022-03-06T09:38:52Z
 draft: false
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes"]
 cover:
