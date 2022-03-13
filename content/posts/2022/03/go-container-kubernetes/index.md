@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes - Pull an Image From a Private Docker Hub Registry"
-date: 2022-03-13T10:11:47Z
+date: 2022-03-13T09:11:47Z
 draft: false
 tags: ["Linux", "Ubuntu", "VirtualBox", "Kubernetes", "Go", "Docker"]
 cover:
