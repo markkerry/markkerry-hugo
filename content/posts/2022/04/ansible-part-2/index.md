@@ -10,8 +10,6 @@ cover:
     relative: false
 ---
 
-## Playbooks
-
 Playbooks allow us to write ordered process and manage configurations in the form of yaml syntax. These can then be used to build out remote systems. "Configuration as code" means the playbook yaml files can sit in source control and be integrated with CI/CD pipelines.
 
 You need to create a Playbook listing everything you want to apply to each instance. And since playbooks run from top to bottom, they need to be in a logically defined order. 
@@ -207,7 +205,9 @@ Now to deploy a `index.php` and delete the `index.html`
 
 ```php
 <?php
-  echo "<h1>Site configured by Ansible.</h1>";
+  $hostname = gethostname();
+  echo "<h1>Site configured by Ansible</h1>";
+  echo "<h2>Webserver: $hostname</h2>";
 ?>
 ```
 
@@ -265,8 +265,16 @@ In there I also have a few other
 
 Finally I can test the load balancer is working by browsing to the local IP
 
-![SiteByAnsible](images/SiteByAnsible.png)
+![lb_web1](images/lb_web1.png)
+
+Note that it returned it was using **web1**. If I connect again this time it used **web2**
+
+![lb_web2](images/lb_web2.png)
 
 And can get some info on the balancer manager page
 
 ![balancer-manager](images/balancer-manager.png)
+
+## Next Post
+
+In the next post in the series I will go over variables, debugging playbooks and Ansible Vault.
