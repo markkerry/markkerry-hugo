@@ -212,7 +212,7 @@ user: vagrant
 password: vagrant
 ```
 
-SCREENSHOT OF LOGGED INTO VM
+![login](images/login.png)
 
 If I power off a node-01 using the `shutdown now` command, I can run `terraform plan` again which will show a change is required as the VM being off does not match the desired state. As you can see below the status should be "running".
 
@@ -228,7 +228,7 @@ We can delete all objects managed by this configuration using the `terraform des
 terraform plan -destroy
 ```
 
-SCREENSHOT
+![planDestroy](images/planDestroy.png)
 
 Then run the destroy command, typing `yes` to confirm.
 
@@ -236,4 +236,4 @@ Then run the destroy command, typing `yes` to confirm.
 terraform destroy
 ```
 
-SCREENSHOT
+![terraformDestroy](images/terraformDestroy.png)
