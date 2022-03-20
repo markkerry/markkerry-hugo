@@ -1,14 +1,24 @@
 ---
 title: "Ansible Part 2: Playbooks"
-date: 2022-03-07T10:48:04Z
+date: 2022-03-07T10:31:05Z
 draft: true
 tags: ["Linux", "Ubuntu", "VirtualBox", "Ansible", "Apache"]
 cover:
     image: "images/cover.png"
     alt: "<alt text>"
-    caption: "Configuring and Apache Loadblancer and Webservers with Ansible Playbooks"
+    caption: "Configuring an Apache Load Balancer and Web Servers with Ansible Playbooks"
     relative: false
 ---
+
+In this post I'll be going over Ansible Playbooks. The complete list of posts in this series are:
+
+1. [Ansible Part 1: Setup and Configure on Ubuntu and VirtualBox](https://markkerry.github.io/posts/2022/04/ansible-part-1/)
+2. Ansible Part 2: Playbooks (This post)
+3. [Ansible Part 3: Variables, Vault and Roles](https://markkerry.github.io/posts/2022/04/ansible-part-3/)
+
+All code in these posts can be found on [GitHub - ubuntu-config/ansible](https://github.com/markkerry/ubuntu-config/tree/main/ansible)
+
+## Playbooks
 
 Playbooks allow us to write ordered process and manage configurations in the form of yaml syntax. These can then be used to build out remote systems. "Configuration as code" means the playbook yaml files can sit in source control and be integrated with CI/CD pipelines.
 
@@ -57,10 +67,12 @@ Then populate
 
 Notice the `become: true`. This means become root (sudo), as the `apt` commands require sudo. Without it the playbook would run as follows.
 
-Run it
+![missingSudo](images/missingSudo.png)
+
+So with `become: true` defined it's time to run the playbook as follows:
 
 ```terminal
-ansible-playbook apt-update.yaml -K
+ansible-playbook playbooks/apt-update.yaml -K
 ```
 
 The `-K` means "ask for become password".
@@ -69,7 +81,7 @@ The `-K` means "ask for become password".
 
 ## Setup the servers
 
-on lb1
+Now it's time to configure the Ubuntu servers; one load balancer and two web servers. All three servers will require Apache installed, however the load balancer will require the following Apache Modules which to be installed manually would be:
 
 ```terminal
 sudo a2enmod proxy
@@ -79,13 +91,13 @@ sudo a2enmod proxy_balancer
 sudo systemctl restart apache2
 ```
 
-Text
+But I will incorporate the Apache Modules required for a load balancer in the playbook. Also the web servers will require php in order to be able to host the custom `index.php` file I'll be deploying to them. Create the playbook as follows:
 
 ```terminal
-vim ./playbooks/install-services.yaml
+vim playbooks/install-services.yaml
 ```
 
-Paste in here the `install-services.yaml`
+The `install-services.yaml` looks as follows:
 
 ```yaml
 # install-services.yaml
@@ -131,7 +143,7 @@ Paste in here the `install-services.yaml`
         service: name=apache2 state=started enabled=yes
 ```
 
-run it
+And once saved it is time to test it:
 
 ```terminal
 ansible-playbook playbooks/install-services.yaml -K
@@ -139,17 +151,23 @@ ansible-playbook playbooks/install-services.yaml -K
 
 ![install-services](images/install-services.png)
 
+Now that all three servers have the required applications installed it is time to configure them.
 
-## Configure Load balancer
+## Configure the Load Balancer
 
-
+I'll start by creating a new directory to host any configuration files:
 
 ```terminal
 mkdir ~/ansible/config && cd ~/ansible/config
+```
+
+Then create a new "jinger2" syntax file which will will be deployed to the load balancer to configure it.
+
+```terminal
 vim lb-config.j2
 ```
 
-contents of lb-config.j2
+The contents of `lb-config.j2` file are below. Notice there is some "for loop" logic which is going through each "webserver" host in the `hosts-dev` file. This means the servers do not need to be hard coded in this file and the file does not need to be updated when any web servers are added or deleted.
 
 ```bash
 ProxyRequests off
@@ -169,11 +187,13 @@ ProxyPass /balancer-manager !
 ProxyPass / balancer://webcluster/
 ```
 
+Now that the `lb-config.j2` file has been created, we can create a playbook to deploy it the the load balancer, set the permissions and then restart Apache.
+
 ```terminal
 vim ./playbooks/lb-setup.yaml
 ```
 
-here the `lb-setup.yaml`
+Here is the contents of `lb-setup.yaml`
 
 ```yaml
 ---
@@ -191,7 +211,7 @@ here the `lb-setup.yaml`
         service: name=apache2 state=restarted
 ```
 
-run it
+Run the playbook:
 
 ```terminal
 ansible-playbook playbooks/lb-setup.yaml -K
@@ -199,9 +219,19 @@ ansible-playbook playbooks/lb-setup.yaml -K
 
 ![lb-config](images/lb-config.png)
 
-## Configure the webservers
+That's all that is required to configure the load balancer.
 
-Now to deploy a `index.php` and delete the `index.html`
+## Configure the Web Servers
+
+To configure the web servers, I'm simply going to deploy an `index.php` file and delete the `index.html` from the default Apache `/var/www/html/` directory.
+
+Create the php file in the ansible directory as follows:
+
+```terminal
+vim index.php
+```
+
+The `index.php` file will simply use a function to gather the webservers hostname, print in bold that the site has been configured by Ansible, then display the hostname. This way we can prove the load balancer is working correctly:
 
 ```php
 <?php
@@ -211,11 +241,13 @@ Now to deploy a `index.php` and delete the `index.html`
 ?>
 ```
 
+Now that the `index.php` file has been created, we can create a playbook to deploy it the the web servers, set the permissions, delete the old `index.html`, and then restart Apache.
+
 ```terminal
 vim ./playbooks/app-setup.yaml
 ```
 
-looks like this. Write about handler
+The content of the `app-setup.yaml` file is below. Notice the `notify` and `handlers` section. This means that if anything is changed in the the `name` play then to notify the handler. This particular handler will restart Apache if notified.
 
 ```yaml
 # app-setup.yaml
@@ -241,13 +273,25 @@ looks like this. Write about handler
         service: name=apache2 state=restarted
 ```
 
+Run the playbook:
+
+```terminal
+ansible-playbook playbooks/app-setup.yaml -K
+```
+
 ![app-setup](images/app-setup.png)
 
-## Run all playbooks
+And that is all that is required to configure the web servers.
 
-Create a playbook called... 
+## Run All Playbooks
 
-In there I also have a few other 
+That's quite a few playbooks created in the post. We can combine them all together and deploy them in one playbook using `import_playbook`. I created a new playbook as follows:
+
+```terminal
+vim playbooks/all-playbooks.yaml
+```
+
+Then listed the order in which I wanted the playbooks to be executed.
 
 ```yaml
 # all-playbooks.yaml
@@ -257,6 +301,12 @@ In there I also have a few other
   - import_playbook: install-services.yaml
   - import_playbook: app-setup.yaml
   - import_playbook: lb-setup.yaml
+```
+
+Save the playbook and run it:
+
+```terminal
+ansible-playbook playbooks/all-playbooks.yaml -K
 ```
 
 ![allPlaybooks](images/allPlaybooks.gif)
@@ -275,6 +325,4 @@ And can get some info on the balancer manager page
 
 ![balancer-manager](images/balancer-manager.png)
 
-## Next Post
-
-In the next post in the series I will go over variables, debugging playbooks and Ansible Vault.
+That concludes this post. In the next post in the series I will go over variables, debugging playbooks and Ansible Vault.

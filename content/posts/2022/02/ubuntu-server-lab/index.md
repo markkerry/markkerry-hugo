@@ -1,5 +1,5 @@
 ---
-title: "Ubuntu Server 20.04 LTS Lab"
+title: "Ubuntu Server 20.04 LTS VirtualBox Lab"
 date: 2022-02-13T09:10:46Z
 draft: false
 tags: ["Linux", "Ubuntu", "VirtualBox"]
@@ -10,13 +10,12 @@ cover:
     relative: false
 ---
 
-This is a follow on from my old [Centos 8 post](https://markkerry.github.io/posts/2021/05/centos8-setup/), but this time I will be using Ubuntu LTS servers running on a Linux host with VirtualBox. I had a lot of problems with the previous configuration of Hyper-V which was too much of a pain to rectify each time I went back to it.
-
-The lab environment is designed to be used for any of the following:
+This is a follow on from my old [Centos 8 post](https://markkerry.github.io/posts/2021/05/centos8-setup/), but this time I will be using Ubuntu LTS servers running on a Linux host with VirtualBox. The lab environment is designed to be used for any of the following:
 
 * General Linux sysadmin
 * Kubernetes cluster
 * Ansible configuration management
+* Terraform VirtualBox Provider
 
 This post will cover of the following:
 

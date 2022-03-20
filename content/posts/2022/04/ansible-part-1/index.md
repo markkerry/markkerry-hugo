@@ -10,7 +10,17 @@ cover:
     relative: false
 ---
 
-In a [previous post](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab/), I created the adminbox VM and connected to the KubeNatNetwork (10.0.2.0/24). I will be using the same server in this post as the Ansible Control server, where the configuration and commands will be coming from.
+This is part one in a three part Ansible series, which will demonstrate how you can get started learning Ansible. The complete list of posts in this series are:
+
+1. Ansible Part 1: Setup and Configure on Ubuntu and VirtualBox (This post)
+2. [Ansible Part 2: Playbooks](https://markkerry.github.io/posts/2022/04/ansible-part-2/)
+3. [Ansible Part 3: Variables, Vault and Roles](https://markkerry.github.io/posts/2022/04/ansible-part-3/)
+
+All code in these posts can be found on [GitHub - ubuntu-config/ansible](https://github.com/markkerry/ubuntu-config/tree/main/ansible)
+
+## Getting Started
+
+I used the adminbox VM connected to the KubeNatNetwork (10.0.2.0/24) from a [previous post](https://markkerry.github.io/posts/2022/02/ubuntu-server-lab/). I will be using the same server in this post as the Ansible Control server, where the configuration and commands will be coming from.
 
 | server   | ip addr  | comment                |
 | ---------| -------- | ---------------------- |
@@ -158,7 +168,7 @@ ansible -m ping all
 
 ![pingPong](images/pingPong.png)
 
-Each server returned a `ping` with a `pong`.
+Each server returned it's `ping` with a `pong`.
 
 And finally, I can run a shell command on each each server. I specified the `uname` command:
 
@@ -170,4 +180,4 @@ ansible -m shell -a "uname" all
 
 Each server returned `Linux`. Also notice `rc=0`. This means return code equals 0, success.
 
-In the next post I will configure the load balancer and web servers using Ansible Playbooks.
+That's Ansible installed and connectivity to each machine was successful. In the next post I will configure the load balancer and web servers using Ansible Playbooks.
