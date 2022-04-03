@@ -1,7 +1,7 @@
 ---
 title: "Ansible Part 2: Playbooks"
-date: 2022-03-07T10:31:05Z
-draft: true
+date: 2022-04-03T10:31:05Z
+draft: false
 tags: ["Linux", "Ubuntu", "VirtualBox", "Ansible", "Apache"]
 cover:
     image: "images/cover.png"
