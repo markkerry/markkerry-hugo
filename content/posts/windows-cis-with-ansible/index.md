@@ -1,7 +1,7 @@
 ---
 title: "Configure Windows Server 2022 with Ansible"
-date: 2022-03-16T10:29:10Z
-draft: true
+date: 2022-04-10T09:29:10Z
+draft: false
 tags: ["Ansible", "Windows Server", "CIS"]
 cover:
     image: "images/cover.png"
@@ -30,7 +30,7 @@ I have built another server which has Windows Server 2022 installed which I will
 
 After the Windows Server OS is installed, we can start by ensuring it is ready to be configured by Ansible. Ansible will interact with the Windows host using WinRM rather than SSH. Ansible provides a script to easily configure WinRM on the host using a Self-Signed SSL certificate.
 
-To download and run the script:
+Download and run the script:
 
 ```powershell
 $file = ConfigureRemotingForAnsible.ps1
@@ -42,7 +42,7 @@ cd ~\Desktop
 
 ![psScript](images/psScript.png)
 
-I would recommend here setting a static IP on the Windows host so Ansible always knows how to connect it to.
+I would recommend here setting a static IP on the Windows host so you do not have to update the ip in the Ansible configuration file.
 
 That's all to configure the Windows host. Let's move on to the adminbox with Ansible installed.
 
