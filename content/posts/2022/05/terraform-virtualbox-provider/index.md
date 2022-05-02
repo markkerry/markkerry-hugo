@@ -1,7 +1,7 @@
 ---
 title: "Terraform VirtualBox Provider"
-date: 2022-03-18T12:29:49Z
-draft: true
+date: 2022-05-01T10:02:49Z
+draft: false
 tags: ["Terraform", "IaC", "VirtualBox"]
 cover:
     image: "images/cover.png"
@@ -86,7 +86,7 @@ Now we are ready to install the terra-farm/terraform-provider-virtualbox provide
 mkdir ~/.terraform.d/plugins
 ```
 
-Then install the VirtualBox provider/plugin.
+Install the VirtualBox provider/plugin.
 
 ```terminal
 go install github.com/terra-farm/terraform-provider-virtualbox@latest
