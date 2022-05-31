@@ -55,23 +55,23 @@ Here I included the name and container of the storage account to hold the Terraf
 
 ```terraform
 terraform {
-    required_providers {
-        azurerm = {
-            source  = "hashicorp/azurerm"
-            version = "=3.0.0"
-        }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
     }
-    backend "azurerm" {
-        resource_group_name = "rg-eu-stg"
-        storage_account_name = "mkstgcqgtckq5sjjds"
-        container_name = "tf-state"
-        key = "terraform.tfstate"
-    }
+  }
+  backend "azurerm" {
+    resource_group_name = "rg-eu-stg"
+    storage_account_name = "mkstgcqgtckq5sjjds"
+    container_name = "tf-state"
+    key = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
-    subscription_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    features {}
+  subscription_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  features {}
 }
 ```
 
@@ -186,9 +186,9 @@ resource "azurerm_network_security_group" "nsg" {
 
 # associate the ngg with the nics
 resource "azurerm_network_interface_security_group_association" "nsgassoc" {
-    count = var.instance_count
-    network_interface_id      = element(azurerm_network_interface.nics.*.id, count.index)
-    network_security_group_id = azurerm_network_security_group.nsg.id
+  count = var.instance_count
+  network_interface_id      = element(azurerm_network_interface.nics.*.id, count.index)
+  network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
 # create the vms
