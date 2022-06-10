@@ -1,6 +1,6 @@
 ---
 title: "Terraform Azure Provider"
-date: 2022-05-29T10:01:49Z
+date: 2022-06-05T10:01:49Z
 draft: false
 tags: ["Terraform", "Azure", "IaC"]
 cover:
