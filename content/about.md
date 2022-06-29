@@ -40,4 +40,10 @@ Hi there, my name is Mark and I'm a Senior Infrastructure Engineer
 
 ## Certifications
 
-  ![azureAdmin](https://images.youracclaim.com/images/35d18649-95c6-4c78-b07a-cfc1362318f3/azure-administrator-associate.png)
+Azure Administrator Associate
+
+![azureAdmin](https://images.youracclaim.com/images/35d18649-95c6-4c78-b07a-cfc1362318f3/azure-administrator-associate.png)
+
+CS50 Introduction to Programming with Python
+
+![cs50p-cert](posts/cs50p-programming-with-python/media/CS50P.png)
