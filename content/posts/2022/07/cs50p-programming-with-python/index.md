@@ -1,7 +1,7 @@
 ---
 title: "CS50P Introduction to Programming with Python Final Project"
-date: 2022-06-22T11:35:26+01:00
-draft: true
+date: 2022-07-03T11:35:26+01:00
+draft: false
 tags: ["Python", "CS50P"]
 cover:
     image: "media/cover.png"
@@ -37,7 +37,7 @@ Find out more [here (edx)](https://www.edx.org/course/cs50s-introduction-to-prog
 
 ## Final Project
 
-For my final project I wanted to create a program which will perform a task I am likely use in my role as an infrastructure engineer. So I decided to create a program which queries an API, parses the data and outputs it with the desired fields. This program performs an HTTP GET request against the StackExchange API for the latest questions on StackOverflow, specified by tag, and returns them in appending order of latest activity. The person running the program can specify the tag, count of questions to gather, and whether to output the results as text or a table.
+For my final project I wanted to create a program which will perform a task I am likely to use in my role as an infrastructure engineer. So I decided to create a program which queries an API, parses the data and outputs it with the desired fields. This program performs an HTTP GET request against the StackExchange API for the latest questions on StackOverflow, specified by tag, and returns them in appending order of latest activity. The person running the program can specify the tag, count of questions to gather, and whether to output the results as text or a table.
 
 There are two modules/libraries required to install, which are specified in the requirements.txt file.
 
