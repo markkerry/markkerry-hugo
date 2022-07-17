@@ -86,7 +86,7 @@ Change directory into the new directory.
 cd PythonFuncStopWords
 ```
 
-And now create a new function app and name it whatever you want. I named mine __NLPApplication__. Name your something unique.
+And now create a new function app and name it whatever you want. I named mine __NLPApplication__. Name yours something unique.
 
 ```bash
 func new --name NLPApplication --template "HTTP trigger" --authlevel "function"
