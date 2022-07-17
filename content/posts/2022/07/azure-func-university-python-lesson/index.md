@@ -1,18 +1,18 @@
 ---
 title: "Azure Functions University Python Lesson"
-date: 2022-06-29T14:51:31+01:00
-draft: true
+date: 2022-07-17T14:51:31+01:00
+draft: false
 tags: ["Python", "Azure", "Azure Functions"]
 cover:
     image: "media/cover.png"
     alt: "<alt text>"
-    caption: "A Walkthrough of the Azure Functions University Python Lesson"
+    caption: "A walkthrough of the Azure Functions University Python lesson"
     relative: false
 ---
 
 The following will run through the Python exercise from the Azure Functions University [repo](https://github.com/marcduiker/azure-functions-university/tree/main/src/python/AzureFunctions.Http) and [YouTube channel](https://youtu.be/fDnPGeRTwHc). Azure Functions University is a great resource for learning all about Azure Functions, including all the various triggers, languages, deployment, and Durable Functions.
 
-Also see the [Azure Functions Python developer guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python)
+Also it's worth reviewing the [Azure Functions Python developer guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python) on Microsoft Docs.
 
 ## Create the Azure Function
 
@@ -86,13 +86,13 @@ Change directory into the new directory.
 cd PythonFuncStopWords
 ```
 
-And now create a new function app and name it whatever you want. I named `NLPApplication`.
+And now create a new function app and name it whatever you want. I named mine __NLPApplication__. Name your something unique.
 
 ```bash
 func new --name NLPApplication --template "HTTP trigger" --authlevel "function"
 ```
 
-Within the PythonFuncStopWords directory I created a new folder called `shared_code`. This will be used to host a couple of other Python functions which will be imported into the "main" function.
+Within the PythonFuncStopWords directory I created a new folder called __shared_code__. This will be used to host a couple of other Python functions which will be imported into the _main_ function.
 
 ```bash
 mkdir shared_code && cd shared_code

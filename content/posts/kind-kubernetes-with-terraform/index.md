@@ -73,7 +73,7 @@ curl https://raw.githubusercontent.com/markkerry/ubuntu-config/main/kind/kind-cl
 ## Provision Kind Cluster
 
 ```terminal
-kind create cluster --name terraform-k8s --config kind-cluster.yaml
+kind create cluster --name kind-terraform-k8s --config kind-cluster.yaml
 ```
 
 ![kind-01](media/kind-01.png)
@@ -172,3 +172,5 @@ kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP        10m
 ```terminal
 terraform destroy
 ```
+
+kind delete cluster --name kind-terraform-k8s
