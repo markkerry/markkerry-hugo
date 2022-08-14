@@ -127,3 +127,36 @@ If you refresh GitHub you can see the README.md file in the repo.
 ![github2](images/github2.png)
 
 Finally, I'll add simple instructions within README.md of what to do with the dockerfile and main.go files.
+
+## Create a Branch
+
+Git branches allows you to seperate and continue developing code without affecting the main branch. Once complete you can then merge the code back into the origin branch (main). See the below to create a new "test" branch
+
+```terminal
+git checkout -b test main
+```
+
+Add and commit a file
+
+```terminal
+git add <filename>
+git commit -m "Commit filename"
+```
+
+Switch back to the main branch
+
+```terminal
+git checkout main
+```
+
+Merge the test branch into main
+
+```terminal
+git merge test
+```
+
+Now delete the test branch
+
+```terminal
+git branch -d test
+```

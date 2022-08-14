@@ -1,5 +1,5 @@
 ---
-title: "Create a Kubernetes Cluster with Kind, Managed by Terraform"
+title: "Create a Kubernetes Cluster with Kind and Terraform"
 date: 2022-07-01T16:00:45+01:00
 draft: true
 tags: ["Terraform", "Kubernetes", "Nginx", "Kind"]
@@ -51,7 +51,7 @@ export PATH=$PATH:/usr/local/kind
 
 ## Install Kubectl
 
-```
+```terminal
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -133,7 +133,7 @@ terraform apply
 ![kindgif1](media/kind-01.gif)
 
 ```terminal
-kubectl get pods
+$ kubectl get pods
 NAME                               READY   STATUS    RESTARTS   AGE
 kind-nginx-demo-77697f8f5b-478nt   1/1     Running   0          2m37s
 kind-nginx-demo-77697f8f5b-pzzl9   1/1     Running   0          2m37s
@@ -152,7 +152,7 @@ terraform apply
 ```
 
 ```terminal
-kubectl get pods
+$ kubectl get pods
 NAME                               READY   STATUS    RESTARTS   AGE
 kind-nginx-demo-77697f8f5b-478nt   1/1     Running   0          3m32s
 kind-nginx-demo-77697f8f5b-6r2xk   1/1     Running   0          13s
@@ -163,7 +163,7 @@ kind-nginx-demo-77697f8f5b-pzzl9   1/1     Running   0          3m32s
 ![kindgif2](media/kind-02.gif)
 
 ```terminal
-kubectl get services
+$ kubectl get services
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kind-nginx-demo   NodePort    10.96.149.238   <none>        80:30001/TCP   5m46s
 kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP        10m
@@ -173,4 +173,6 @@ kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP        10m
 terraform destroy
 ```
 
+```terminal
 kind delete cluster --name kind-terraform-k8s
+```
