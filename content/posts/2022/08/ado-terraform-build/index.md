@@ -98,7 +98,7 @@ Select __Azure Repos Git__ as the source and then ensure it has selected the pro
 
 ![newPipeline](media/newPipeline.png)
 
-Click __Start with an Empty Job__. Rename the pipeline and select the "Agent Specification" as __Ubuntu 18.04__
+Click __Start with an Empty Job__. Rename the pipeline and select the "Agent Specification" as __Ubuntu 20.04__
 
 ![newPipeline1](media/newPipeline1.png)
 
@@ -195,7 +195,7 @@ Configure the job, under __Stages__, click __1 job, 0 task__. Enter the followin
 | ------------------- | --------------- |
 | Display name        | terraform apply |
 | Agent pool          | Azure Pipelines |
-| Agent Specification | ubuntu-18.04    |
+| Agent Specification | ubuntu-20.04    |
 
 Click the __+__ to add a task. Search for and select __Extract files__. Change __Archive file patterns__ to:
 
