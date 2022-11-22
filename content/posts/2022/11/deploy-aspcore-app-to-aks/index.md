@@ -1,7 +1,7 @@
 ---
 title: "Deploy an ASP.NET Core Web App to an AKS Cluster"
-date: 2022-11-15T12:09:21Z
-draft: true
+date: 2022-11-20T12:09:21Z
+draft: false
 tags: ["Azure", "AKS", "Kubernetes", "ASP.NET Core"]
 cover:
     image: "media/cover.png"
@@ -32,7 +32,7 @@ Now create an AKS cluster in the Azure portal. A few things to note which you wi
 
 ## Create ASP.NET Core App with Docker Support
 
-Now the infrastructure has been created we can created we can create the ASP.NET Core web app. I simply opened Visual Studio Community 2022 and selected __Create a new project__ > __ASP.NET Core Web App__. I named it as follows:
+Now the infrastructure has been created, we can create the ASP.NET Core web app. I simply opened Visual Studio Community 2022 and selected __Create a new project__ > __ASP.NET Core Web App__. I named it as follows:
 
 ![newProject](media/newProject.png)
 
@@ -69,7 +69,7 @@ COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ASP-Docker-App.dll"]
 ```
 
-There is nothing to change here. This will be used to build the container image before it is pushed to the container registry. Now browse to Index.cshtml.
+There is nothing to change here. This will be used to build the container image before it is pushed to the container registry. Now browse to Pages > Index.cshtml.
 
 ![projectLayout](media/projectLayout.png)
 
@@ -108,7 +108,7 @@ Click __Close__ when prompted.
 
 ![pub3](media/pub3.png)
 
-And when you are click __Publish__.
+And when you are ready click __Publish__.
 
 ![pub4](media/pub4.png)
 
@@ -118,7 +118,7 @@ You will see in the Output window the container being built and pushed to the AC
 
 ## Deploy Container Image to AKS
 
-Now we can deploy container to the AKS cluster. Start by opening the Azure portal, browsing to the Subscription and opening the CLoud Shell (BASH). We will use the `kubectl` tool to manage the cluster.
+Now we can deploy container to the AKS cluster. Start by opening the Azure portal, browsing to the Subscription and opening the Cloud Shell (BASH). We will use the `kubectl` tool to manage the cluster.
 
 You need to gather the credentials in order to interact with the cluster using `kubectl` in Azure Cloud Shell. I used the following command:
 
