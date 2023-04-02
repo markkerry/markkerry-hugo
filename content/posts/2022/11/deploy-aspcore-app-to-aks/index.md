@@ -177,7 +177,7 @@ spec:
 
 Once you save and close the code editor, it's finally time to apply the configuration:
 
-```bash
+```terminal
 kubectl apply -f deploy.yaml
 ```
 
@@ -187,7 +187,7 @@ Notice the deployment and service shows as __created__.
 
 You can run the following commands:
 
-```bash
+```terminal
 kubectl get pods
 kubectl get nodes
 kubectl get service
@@ -196,7 +196,7 @@ kubectl describe deployment
 
 Or just run:
 
-```bash
+```terminal
 kubectl get all
 ```
 
@@ -218,7 +218,7 @@ And that's it, the containerised ASP.NET Core Web App is running on the AKS clus
 
 If you want to clean up the cluster, you can run the following commands:
 
-```bash
+```terminal
 kubectl delete -f deploy.yaml
 kubectl delete svc asp-docker-app --namespace=default
 ```
